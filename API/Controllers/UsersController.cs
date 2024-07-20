@@ -49,12 +49,12 @@ namespace API.Controllers
                     {
                         if (await reader.ReadAsync())
                         {
-                            return new AppUser
+                            return Ok(new AppUser
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 UserName = reader.GetString(reader.GetOrdinal("UserName"))
                                 // Map other properties if necessary
-                            };
+                            });
                         }
                     }
                 }
