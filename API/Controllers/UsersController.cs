@@ -7,26 +7,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class UsersController : ControllerBase
-    {
-        private readonly DataContext _context;
-        private readonly IConnectionStringProvider _connectionStringProvider;
 
+    public class UsersController : BaseApiController
+    {
         public UsersController(DataContext context, IConnectionStringProvider connectionStringProvider)
+       : base(context, connectionStringProvider)
         {
-            _context = context;
-            _connectionStringProvider = connectionStringProvider;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
-            // Retrieve all users asynchronously
             var users = await _context.Users.ToListAsync();
-
-            // Return the list of users
             return Ok(users);
         }
 

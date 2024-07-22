@@ -11,6 +11,8 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddSingleton<IConnectionStringProvider, ConnectionStringProvider>();
+builder.Services.AddScoped<ITokenService,TokenService>();
+
 
 builder.Services.AddControllers(); // Add controllers to the service container
 
