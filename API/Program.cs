@@ -1,32 +1,15 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using API.Data;
 using API.Interfaces;
-using API.Sevices; // Ensure this namespace matches where your DataContext is defined
+using API.Sevices;
+using API.Extensions; 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure services
-builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.ConfigureDbContext(builder.Configuration);
 builder.Services.AddSingleton<IConnectionStringProvider, ConnectionStringProvider>();
 builder.Services.AddScoped<ITokenService,TokenService>();
-
-
-builder.Services.AddControllers(); // Add controllers to the service container
-
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFromPort4200", policy =>
-    {
-        policy.WithOrigins("http://localhost:4200") // Specify the allowed origin with port
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
-});
-
+builder.Services.ConfigureJwtAuthentication(builder.Configuration);
+builder.Services.AddControllers();
+builder.Services.ConfigureCors();
 
 var app = builder.Build();
 
@@ -35,7 +18,8 @@ app.UseRouting();
 
 app.UseCors(x =>  x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
 
-app.UseAuthorization(); // Add authorization middleware if needed
+app.UseAuthorization(); 
+app.UseAuthentication();
 
 app.UseEndpoints(endpoints =>
 {
