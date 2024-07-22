@@ -31,8 +31,17 @@ namespace API.Sevices
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDiscriptor);
-            return tokenHandler.WriteToken(token); 
+            try
+            {
+                var token = tokenHandler.CreateToken(tokenDiscriptor);
+
+                return tokenHandler.WriteToken(token);
+
+            }
+            catch (Exception ex) {
+                return null;
+            }
+            
         }
     }
 }

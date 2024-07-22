@@ -1,0 +1,21 @@
+a { 
+    text-decoration: none;
+    color: white;
+}
+
+a:active, a:hover{
+    color: lightgray;
+}
+.navigation-items{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
+.nav-caption{
+    display: inline-block;
+    margin-left: 7px;
+}
+a{
+    cursor: pointer;
+}
