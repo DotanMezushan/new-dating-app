@@ -4,6 +4,6 @@ export class LoginModel {
 }
 
 export class UserResponse {
-  public UserName: string | undefined;
-  public Token: string | undefined; ;
+  public userName: string | undefined;
+  public token: string | undefined; ;
 }

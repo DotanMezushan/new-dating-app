@@ -1,21 +1,35 @@
-a { 
+a {
     text-decoration: none;
     color: white;
-}
-
-a:active, a:hover{
+    cursor: pointer; /* Pointer cursor for hover */
+    
+    &:hover {
+      color: lightgray;
+      font-size: larger;
+    }
+  
+    &:active {
+      color: lightgray;
+      font-size: larger;
+    }
+  }
+  
+  ::ng-deep a.active-link {
+    text-decoration: none;
+    font-weight: bold;
     color: lightgray;
-}
-.navigation-items{
+    font-size: larger;
+    cursor: default; /* Set default cursor for active link */
+  }
+  
+  .navigation-items {
     list-style: none;
     padding: 0;
     margin: 0;
-
-}
-.nav-caption{
+  }
+  
+  .nav-caption {
     display: inline-block;
     margin-left: 7px;
-}
-a{
-    cursor: pointer;
-}
+  }
+  

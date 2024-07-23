@@ -22,13 +22,13 @@ export class AppComponent implements OnInit {
     private http: HttpClient  ) {}
 
   ngOnInit(): void {
-    this.http.get("http://localhost:5001/api/users").subscribe({
-      next: (users: any) => {
-        this.users = users;
-      },
-      error: (err) => {
-        console.error("Error fetching users:", err);
-      }
-    });
+    // this.http.get("http://localhost:5001/api/users").subscribe({
+    //   next: (users: any) => {
+    //     this.users = users;
+    //   },
+    //   error: (err) => {
+    //     console.error("Error fetching users:", err);
+    //   }
+    // });
   }
 }

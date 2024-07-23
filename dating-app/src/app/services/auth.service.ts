@@ -25,7 +25,7 @@ export class AuthService {
           this.currentUserSource.next(response);
         };
       })
-    )
+    );
   }
 
   register(model: LoginModel): Observable<any> {

@@ -34,8 +34,7 @@ export class LoginComponent {
       UserName: form.value.email,
       Password: form.value.password
     };
-    this.authService.login(login).subscribe((res : any) => {
-      console.log(res);
+    this.authService.login(login).subscribe(() => {
       this.isLoading = false;
       this.authService.navigateToHomePage();
     });

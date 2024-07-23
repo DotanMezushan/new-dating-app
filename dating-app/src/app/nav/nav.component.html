@@ -1,19 +1,33 @@
-<mat-toolbar color ="primary">
+<mat-toolbar color="primary">
     <div fxHide.gt-xs>
-        <button mat-icon-button (click)="onToggleSidenav()" >
+        <button mat-icon-button (click)="onToggleSidenav()">
             <mat-icon>menu</mat-icon>
         </button>
     </div>
-    <div> <a routerLink="/">Dating App</a></div>
+    <div> <a (click)="navigate('/')">Dating App</a></div>
     <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-            <ul fxLayoutGap="10px" fxLayout class="navigation-items">
-                <li *ngIf="!isAuth"><a (click)="signup()" >Signup</a></li>
-                <li *ngIf="!isAuth"><a (click)="login()" >Login</a></li>
-                <li *ngIf="isAuth"> <a  routerLink="/members">Matches</a></li>
-                <li *ngIf="isAuth"> <a routerLink="/training">List</a></li>
-                <li *ngIf="isAuth"> <a routerLink="/training">Messages</a></li>
-                <li  *ngIf="isAuth"> <a  routerLink="/" (click)="onLogout()">Logout</a></li>
-
-            </ul>
+        <ul fxLayoutGap="10px" fxLayout class="navigation-items">
+            <li *ngIf="!isAuth">
+                <a [ngClass]="{'active-link': isActive('/signup')}"  
+                (click)="navigate('/signup')" >Signup</a>
+            </li>
+            <li *ngIf="!isAuth">
+                <a [ngClass]="{'active-link': isActive('/login')}" 
+                (click)="navigate('/login')" >Login</a>
+            </li>
+            <li *ngIf="isAuth"> 
+                <a [ngClass]="{'active-link': isActive('/members')}" 
+                (click)="navigate('/members')" >Matches</a>
+            </li>
+            <li *ngIf="isAuth"> 
+                <a [ngClass]="{'active-link': isActive('/list')}" 
+                (click)="navigate('/list')" >List</a>
+            </li>
+            <li *ngIf="isAuth"> 
+                <a [ngClass]="{'active-link': isActive('/messages')}" 
+                (click)="navigate('/messages')" >Messages</a>
+            </li>
+            <li *ngIf="isAuth"> <a (click)="onLogout()">Logout</a> </li>
+        </ul>
     </div>
 </mat-toolbar>
