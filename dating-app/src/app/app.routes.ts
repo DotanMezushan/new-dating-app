@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { HomeComponent } from './home/home.component';
@@ -6,6 +6,7 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
+import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
     {
@@ -15,7 +16,7 @@ export const routes: Routes = [
         path: 'signup',component : SignupComponent
     },
     {
-        path: 'members',component : MemberListComponent
+        path: 'members',component : MemberListComponent ,
     },
     {
         path: 'members/:id',component : MemberDetailComponent
@@ -35,3 +36,9 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
 ];
+
+@NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
+  })
+  export class AppRoutingModule { }

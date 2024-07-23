@@ -47,7 +47,7 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  navigateToHomePage(): void {
+navigateToHomePage(): void {
     this.router.navigate(['/home']);
   }
 }
