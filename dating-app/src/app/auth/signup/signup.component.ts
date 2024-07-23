@@ -56,7 +56,9 @@ export class SignupComponent implements OnInit{
     
 
     this.authService.register(signup).subscribe((res : any) => {
-      console.log(res)
+      console.log(res);
+    }, error => {
+      console.log(error);
     });
 
   }
