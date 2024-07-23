@@ -18,7 +18,8 @@ export class AppComponent implements OnInit {
   title = 'dating-app';
   users: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient  ) {}
 
   ngOnInit(): void {
     this.http.get("http://localhost:5001/api/users").subscribe({

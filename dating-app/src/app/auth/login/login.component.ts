@@ -37,6 +37,7 @@ export class LoginComponent {
     this.authService.login(login).subscribe((res : any) => {
       console.log(res);
       this.isLoading = false;
+      this.authService.navigateToHomePage();
     });
   }
 }

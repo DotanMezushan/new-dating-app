@@ -3,7 +3,7 @@ export class LoginModel {
   public Password: string | undefined;
 }
 
-export interface UserResponse {
-  UserName: string;
-  Token: string;
+export class UserResponse {
+  public UserName: string | undefined;
+  public Token: string | undefined; ;
 }
