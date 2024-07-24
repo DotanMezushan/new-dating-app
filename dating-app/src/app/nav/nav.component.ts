@@ -47,7 +47,7 @@ export class NavComponent implements OnInit , OnDestroy {
     this.authStatusSubscription = this.authService.currentUser$.subscribe((user) => {
       this.currentUser = user;
       this.isAuth = !!user;
-    });
+  });
   }
 
   ngOnDestroy(): void {
