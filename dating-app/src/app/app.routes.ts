@@ -7,7 +7,7 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { NgModule } from '@angular/core';
-import { authGuard } from './auth.guard';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
     {
@@ -17,19 +17,27 @@ export const routes: Routes = [
         path: 'signup',component : SignupComponent
     },
     {
-        path: 'members',component : MemberListComponent , canActivate: [authGuard]
-    },
-    {
-        path: 'members/:id',component : MemberDetailComponent , canActivate: [authGuard]
-    },
-    {
-        path: 'list',component : ListsComponent , canActivate: [authGuard]
-    },
-    {
-        path: 'messages',component : MessagesComponent , canActivate: [authGuard]
-    },
-    {
         path: '',component : HomeComponent
+    },
+    {
+        path: '',
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthGuard],
+        children: [
+            {
+                path: 'members',component : MemberListComponent , canActivate: [AuthGuard]
+            },
+            {
+                path: 'members/:id',component : MemberDetailComponent , canActivate: [AuthGuard]
+            },
+            {
+                path: 'list',component : ListsComponent , canActivate: [AuthGuard]
+            },
+            {
+                path: 'messages',component : MessagesComponent , canActivate: [AuthGuard]
+            },
+        ]
+
     },
     {
         path: '**',
