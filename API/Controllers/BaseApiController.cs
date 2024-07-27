@@ -1,5 +1,6 @@
 ﻿using API.Data;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,11 +11,19 @@ namespace API.Controllers
     {
         protected  DataContext _context;
         protected IConnectionStringProvider _connectionStringProvider;
+        protected readonly IMapper _mapper;
 
         public BaseApiController(DataContext context, IConnectionStringProvider connectionStringProvider)
         {
             _context = context;
             _connectionStringProvider = connectionStringProvider;
+        }
+
+        public BaseApiController(DataContext context, IConnectionStringProvider connectionStringProvider, IMapper mapper)
+        {
+            _context = context;
+            _connectionStringProvider = connectionStringProvider;
+            this._mapper = mapper;
         }
     }
 }

@@ -1,17 +1,31 @@
-using API.Interfaces;
-using API.Sevices;
-using API.Extensions;
-using API.Data;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using API.Interfaces;
+using API.Extensions;
+using API.Sevices;
+using API.Data;
+using API.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigureDbContext(builder.Configuration);
 builder.Services.AddSingleton<IConnectionStringProvider, ConnectionStringProvider>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 builder.Services.AddScoped<ITokenService,TokenService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.ConfigureJwtAuthentication(builder.Configuration);
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    });
+
 builder.Services.ConfigureCors();
+
+
 
 var app = builder.Build();
 
@@ -35,11 +49,9 @@ using (var scope = app.Services.CreateScope())
 
 // Configure middleware and endpoints
 app.UseRouting();
-
-app.UseCors(x =>  x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
-
-app.UseAuthorization(); 
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
