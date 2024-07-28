@@ -64,6 +64,10 @@ export class AuthService {
     this.router.navigate(['/home']);
   }
 
+  navigateToDev(): void{
+    this.router.navigate(['/members']);
+  }
+
   getToken(): string  {
     let tokenString = localStorage.getItem('authToken');
     if(tokenString) {

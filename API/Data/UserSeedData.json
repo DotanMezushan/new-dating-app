@@ -15,7 +15,16 @@
       {
         "Url": "https://randomuser.me/api/portraits/women/65.jpg",
         "IsMain": true
+      },
+      {
+        "Url": "https://randomuser.me/api/portraits/women/1.jpg",
+        "IsMain": true
+      },
+      {
+        "Url": "https://randomuser.me/api/portraits/women/2.jpg",
+        "IsMain": true
       }
+
     ]
   },
   {

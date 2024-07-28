@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { AuthService } from '../../services/auth.service';
 import { LoginModel } from '../../models/login.model';
+import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +16,12 @@ import { LoginModel } from '../../models/login.model';
   imports: [
     CommonModule,
     MatButtonModule,
+    MatDividerModule, 
     MatInputModule,
     FormsModule,
     MatFormFieldModule,
     FlexLayoutModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -37,6 +39,18 @@ export class LoginComponent {
     this.authService.login(login).subscribe(() => {
       this.isLoading = false;
       this.authService.navigateToHomePage();
+    });
+  }
+
+  login(){
+    this.isLoading = true;
+    const login: LoginModel = {
+      UserName: "jeri",
+      Password: "Pa$$w0rd"
+    };
+    this.authService.login(login).subscribe(() => {
+      this.isLoading = false;
+      this.authService.navigateToDev();
     });
   }
 }

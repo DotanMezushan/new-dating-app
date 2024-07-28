@@ -4,7 +4,7 @@
       <div class="profile-name">{{ member?.knowAs }}</div>
       <div class="profile-location">{{ member?.city }}, {{ member?.country }}</div>
       <div class="profile-icons">
-        <mat-icon>person</mat-icon>
+        <mat-icon [routerLink]="['/members/', member?.userName]" >person</mat-icon>
         <mat-icon>favorite</mat-icon>
         <mat-icon>comment</mat-icon>
       </div>

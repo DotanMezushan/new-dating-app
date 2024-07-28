@@ -1,1 +1,36 @@
-<p>member-detail works!</p>
+<div class="member-detail">
+    <mat-card class="profile-card">
+      <mat-card-header>
+        <div mat-card-avatar class="profile-image" [ngStyle]="{'background-image': 'url(' + currentPhotoUrl + ')'}"></div>
+        <mat-card-title>{{ member?.knowAs }}</mat-card-title>
+        <mat-card-subtitle>{{ member?.city }}, {{ member?.country }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>Username:</strong> {{ member?.userName }}</p>
+        <p><strong>Age:</strong> {{ member?.age }}</p>
+        <p><strong>Gender:</strong> {{ member?.gender }}</p>
+        <p><strong>Introduction:</strong> {{ member?.introduction }}</p>
+        <p><strong>Looking For:</strong> {{ member?.lookingFor }}</p>
+        <p><strong>Interests:</strong> {{ member?.interests }}</p>
+        <p><strong>City:</strong> {{ member?.city }}</p>
+        <p><strong>Country:</strong> {{ member?.country }}</p>
+        <p><strong>Created:</strong> {{ member?.created | date }}</p>
+        <p><strong>Last Active:</strong> {{ member?.lastActive | date }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-icon-button (click)="previousPhoto()">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button mat-icon-button (click)="nextPhoto()">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+        <button mat-icon-button (click)="likeMember()">
+          <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button (click)="messageMember()">
+          <mat-icon>message</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  

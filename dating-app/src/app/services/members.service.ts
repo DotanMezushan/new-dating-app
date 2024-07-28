@@ -34,7 +34,7 @@ export class MembersService {
 
     const params = new HttpParams().set('userName', userName);
 
-    return this.http.get<Member>(`${this.baseUrl}users/name`, {  params });
+    return this.http.get<Member>(`${this.baseUrl}users/userName`, {  params });
   }
 
 }

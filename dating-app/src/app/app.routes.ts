@@ -28,7 +28,7 @@ export const routes: Routes = [
                 path: 'members',component : MemberListComponent , canActivate: [AuthGuard]
             },
             {
-                path: 'members/:id',component : MemberDetailComponent , canActivate: [AuthGuard]
+                path: 'members/:username',component : MemberDetailComponent , canActivate: [AuthGuard]
             },
             {
                 path: 'list',component : ListsComponent , canActivate: [AuthGuard]
