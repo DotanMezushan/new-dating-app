@@ -35,7 +35,7 @@ namespace API.Data
 
         }
 
-        public async Task<List<MemberDto>> GetMembersAsync()
+        public async Task<IEnumerable<MemberDto>> GetMembersAsync()
         {
             return await this.context.Users
                 .ProjectTo<MemberDto>(this.mapper.ConfigurationProvider)

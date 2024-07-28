@@ -12,11 +12,10 @@
                 placeholder="Your email"
                 ngModel
                 name="email"
-                email
                 required
                 #emailInpit = "ngModel"
             >
-            <mat-error  *ngIf="emailInpit.hasError('email')">E-mail is invalid</mat-error>
+            <!-- <mat-error  *ngIf="emailInpit.hasError('email')">E-mail is invalid</mat-error> -->
             <mat-error *ngIf="emailInpit.hasError('required')" >Field must not be empty</mat-error>
         </mat-form-field>
         <mat-form-field hintLabel="Should be at least 6 characters long">

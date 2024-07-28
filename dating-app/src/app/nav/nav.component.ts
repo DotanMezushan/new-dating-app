@@ -24,7 +24,6 @@ import { AuthService } from '../services/auth.service';
   styleUrl: './nav.component.scss',
 })
 export class NavComponent implements OnInit , OnDestroy {
-  isAuth:boolean = false;
   currentUser: UserResponse | undefined | null = undefined;
   activeRoute: string = '';
   private authStatusSubscription: Subscription | undefined;
@@ -44,10 +43,6 @@ export class NavComponent implements OnInit , OnDestroy {
       this.activeRoute = event.urlAfterRedirects;
     });
 
-    this.authStatusSubscription = this.authService.currentUser$.subscribe((user) => {
-      this.currentUser = user;
-      this.isAuth = !!user;
-  });
   }
 
   ngOnDestroy(): void {
@@ -70,6 +65,15 @@ export class NavComponent implements OnInit , OnDestroy {
 
   isActive(route: string): boolean {
     return this.activeRoute === route;
+  }
+
+  isAuthenticated(): boolean {
+    let tokenString: string = this.authService.getToken();
+    if(tokenString?.length>10){
+      return true;
+    }else{
+      return false;
+    }
   }
 
 }

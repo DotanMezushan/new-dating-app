@@ -36,7 +36,13 @@ namespace API.Controllers
             };
 
             await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+            try
+            {
+
+            }
+            catch (Exception ex) {
+                await _context.SaveChangesAsync();
+            }
 
             return Ok(
                     new UserDto() { UserName= user.UserName , Token = _tokenSrevice.CreateToken(user)}

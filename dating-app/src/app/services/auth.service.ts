@@ -4,6 +4,7 @@ import { map, Observable, ReplaySubject } from 'rxjs';
 import { LoginModel, UserResponse } from '../models/login.model';
 import { Router } from '@angular/router';
 import { SnackbarService } from './snackbar.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,20 +12,23 @@ import { SnackbarService } from './snackbar.service';
 export class AuthService {
   private currentUserSource = new ReplaySubject<UserResponse | null>(1);
   public currentUser$ = this.currentUserSource.asObservable();
-  public isAuthenticated : boolean = false;
+  public isAuthenticated: boolean = false;
 
-  constructor(private http: HttpClient, 
+  constructor(
+    private http: HttpClient,
     private router: Router,
-    private snackbarService : SnackbarService
+    private snackbarService: SnackbarService,
   ) {}
-  baseUrl = 'http://localhost:5001/api/';
+
+  baseUrl = environment.apiUrl;
 
   login(model: LoginModel): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}Account/login`, model).pipe(
+    return this.http.post<UserResponse>(`${this.baseUrl}Account/login`, model).pipe(
       map((response: UserResponse) => {
-        if (response) {
+        if (response && response.token) {
           this.currentUserSource.next(response);
           this.isAuthenticated = true;
+          localStorage.setItem('authToken', response.token);
         }
       })
     );
@@ -33,27 +37,39 @@ export class AuthService {
   register(model: LoginModel): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}Account/register`, model).pipe(
       map((response: UserResponse) => {
-        if (response) {
+        if (response && response.token) {
           this.currentUserSource.next(response);
           this.isAuthenticated = true;
+          localStorage.setItem('authToken', response.token);
         }
       })
     );
   }
 
   setCurrentUser(user: UserResponse) {
-    this.currentUserSource.next(user);
+    if (user.token) {
+      localStorage.setItem('authToken', user.token);
+    }
   }
 
   setLogOut() {
     this.currentUserSource.next(null);
     this.isAuthenticated = false;
-    this.snackbarService.showSnackbar("You logout", null,3000);
+    localStorage.removeItem('authToken');
+    this.snackbarService.showSnackbar("You logged out", null, 3000);
     this.router.navigate(['/login']);
   }
 
   navigateToHomePage(): void {
     this.router.navigate(['/home']);
   }
-  
+
+  getToken(): string  {
+    let tokenString = localStorage.getItem('authToken');
+    if(tokenString) {
+      return tokenString;
+    }else{
+      return "";
+    }
+  }
 }
