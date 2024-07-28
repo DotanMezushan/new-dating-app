@@ -21,31 +21,20 @@ export class MembersService {
   ) {}
 
   getMembers(): Observable<Member[]> {
-    const httpOptions = this.createHttpOptions();
-    return this.http.get<Member[]>(`${this.baseUrl}users`, httpOptions);
+    return this.http.get<Member[]>(`${this.baseUrl}users`);
   }
 
   getMemberById(id: number): Observable<Member> {
-    const httpOptions = this.createHttpOptions();
     const params = new HttpParams().set('id', id.toString());
 
-    return this.http.get<Member>(`${this.baseUrl}users/id`, { headers: httpOptions.headers, params });
+    return this.http.get<Member>(`${this.baseUrl}users/id`, { params });
   }
 
   getMemberByName(userName: string): Observable<Member> {
-    const httpOptions = this.createHttpOptions();
 
     const params = new HttpParams().set('userName', userName);
 
-    return this.http.get<Member>(`${this.baseUrl}users/name`, { headers: httpOptions.headers, params });
+    return this.http.get<Member>(`${this.baseUrl}users/name`, {  params });
   }
 
-  private createHttpOptions(): { headers: HttpHeaders } {
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({
-      Authorization: token ? `Bearer ${token}` : ''
-    });
-
-    return { headers };
-  }
 }
