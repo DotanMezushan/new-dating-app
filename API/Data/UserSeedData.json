@@ -199,36 +199,3 @@
     ]
   }
 ]
-
-
-
-
-
-
-//[
-//  '{{repeat(5)}}',
-//  {
-//    UserName: '{{firstName("female")}}',
-//    Gender: 'female',
-//    DateOfBirth: '{{date(new Date(1950,0,1),new Date(1999,1,1) , "YYYY-MM-dd")}}',
-//    KnowAs: function()  {return this.UserName;},
-//    Created: '{{date(new Date(2018,0,1),new Date(2019,11,1),"YYYY-MM-dd")}}',
-//    LastAction: '{{date(new Date(2019,11,1),new Date(2022,11,1),"YYYY-MM-dd")}}',
-//    Introduction: '{{lorem(1,"paragraphs")}}',
-//    LookingFor: '{{lorem(1,"paragraphs")}}',
-//    Interests:'{{lorem(1,"sentences")}}',
-//    City: '{{city()}}',
-//    Country: '{{country()}}',
-//    Photos: [
-//      {
-//        Url: function(num){
-//          return 'https://randomuser.me/api/portraits/women/' + num.integer(1,99) + '.jpg';
-//        }, 
-//        IsMain : true
-//      }
-//    ]
-//  }
-   
-//]
-
-//https://json-generator.com/#

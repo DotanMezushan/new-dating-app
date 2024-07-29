@@ -1,21 +1,20 @@
-<div class="member-detail">
+<div class="member-container" *ngIf="member != undefined">
+  <div class="member-detail">
     <mat-card class="profile-card">
       <mat-card-header>
+        <mat-card-title>{{ member.knowAs }}</mat-card-title>
+
         <div mat-card-avatar class="profile-image" [ngStyle]="{'background-image': 'url(' + currentPhotoUrl + ')'}"></div>
-        <mat-card-title>{{ member?.knowAs }}</mat-card-title>
-        <mat-card-subtitle>{{ member?.city }}, {{ member?.country }}</mat-card-subtitle>
       </mat-card-header>
+     
       <mat-card-content>
-        <p><strong>Username:</strong> {{ member?.userName }}</p>
-        <p><strong>Age:</strong> {{ member?.age }}</p>
-        <p><strong>Gender:</strong> {{ member?.gender }}</p>
-        <p><strong>Introduction:</strong> {{ member?.introduction }}</p>
-        <p><strong>Looking For:</strong> {{ member?.lookingFor }}</p>
-        <p><strong>Interests:</strong> {{ member?.interests }}</p>
-        <p><strong>City:</strong> {{ member?.city }}</p>
-        <p><strong>Country:</strong> {{ member?.country }}</p>
-        <p><strong>Created:</strong> {{ member?.created | date }}</p>
-        <p><strong>Last Active:</strong> {{ member?.lastActive | date }}</p>
+        <p><strong></strong> {{ member.city }}, {{ member.country }}</p>
+        <p><strong>Age:</strong> {{ member.age }}</p>
+        <p><strong>Gender:</strong> {{ member.gender }}</p>
+        <p><strong>City:</strong> {{ member.city }}</p>
+        <p><strong>Country:</strong> {{ member.country }}</p>
+        <p><strong>Created:</strong> {{ member.created | date }}</p>
+        <p><strong>Last Active:</strong> {{ member.lastActive | date }}</p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-icon-button (click)="previousPhoto()">
@@ -33,4 +32,25 @@
       </mat-card-actions>
     </mat-card>
   </div>
-  
+
+  <div class="member-details-tab">
+    <mat-tab-group animationDuration="1000ms">
+      <mat-tab label="About {{member.knowAs}}" >
+        <h4>Description</h4>
+        <p>{{member.introduction}}</p>
+        <h4>Looking for</h4>
+        <p>{{member.lookingFor}}</p>
+      </mat-tab>
+      <mat-tab label="Interests">
+        <h4>Interests</h4>
+        <p>{{member.interests}}</p>
+      </mat-tab>
+      <mat-tab label="Photos">
+        <app-photo-gallery [imagesUrl]="imagesUrl"></app-photo-gallery>
+      </mat-tab>
+      <mat-tab label="Messages">
+        <p>smart component for Messages</p>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

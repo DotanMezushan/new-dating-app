@@ -6,11 +6,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import {MatTabsModule} from '@angular/material/tabs';
+import { PhotoGalleryComponent } from "../../tabs/photo-gallry/photo-gallry.component";
 
 @Component({
   selector: 'app-member-detail',
   standalone: true,
-  imports:  [CommonModule, MatCardModule, MatButtonModule, MatIconModule, RouterModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, RouterModule, MatTabsModule, PhotoGalleryComponent],
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.scss']
 })
@@ -18,6 +20,7 @@ export class MemberDetailComponent implements OnInit {
   member: Member | undefined;
   currentPhotoIndex = 0;
   currentPhotoUrl = '';
+  imagesUrl : string[] = [];
 
   constructor(
     private membersService: MembersService,
@@ -33,7 +36,7 @@ export class MemberDetailComponent implements OnInit {
     if (username) {
       this.membersService.getMemberByName(username).subscribe(member => {
         this.member = member;
-        console.log(this.member);
+        this.setimagesUrl();
         if (this.member && this.member.photos && this.member.photos.length > 0) {
           this.currentPhotoUrl = this.member.photos[this.currentPhotoIndex].url;
         }
@@ -62,4 +65,12 @@ export class MemberDetailComponent implements OnInit {
   messageMember(){
     console.log('Message button clicked');
   }
+
+   setimagesUrl() : void{
+    if(this.member && this.member.photos && this.member.photos.length){
+      for (let i = 0; i < this.member.photos.length; i++){
+        this.imagesUrl.push(this.member.photos[i].url);
+      }
+    }
+   }
 }

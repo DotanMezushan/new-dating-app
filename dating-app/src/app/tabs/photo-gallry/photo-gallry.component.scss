@@ -1,0 +1,62 @@
+.gallery-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px; /* Add padding at the top */
+}
+
+.main-image {
+  width: 800px; /* Set a fixed width in pixels for the main image container */
+  margin-bottom: 15px; /* Increase bottom margin if needed */
+  display: flex;
+  justify-content: center;
+  padding: 5px; /* Optional: Add padding inside the border */
+  border: 2px solid #ccc; /* Add border around the main image */
+  border-radius: 8px; /* Optional: Add rounded corners */
+}
+
+.main-image img {
+  width: 100%; /* Ensure the image takes the full width of its container */
+  height: 550px; /* Set explicit height for the main image */
+  object-fit: cover; /* Fill the container, cropping if necessary */
+  border-radius: 6px; /* Match the border-radius of the container */
+}
+
+.navigation-buttons {
+  margin-bottom: 15px; /* Increase bottom margin for spacing between buttons and thumbnails */
+}
+
+.navigation-buttons button {
+  margin: 0 10px; /* Adjust margin between buttons */
+  padding: 8px 15px; /* Adjust padding for better button appearance */
+}
+
+.thumbnails {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  width: 800px; /* Set width to match main image container */
+  padding-bottom: 20px; /* Add padding to the bottom if needed */
+}
+
+.thumbnail {
+  margin: 0 5px;
+  cursor: pointer;
+  opacity: 0.6;
+  border: 2px solid #ccc; /* Add border around thumbnails */
+  border-radius: 4px; /* Optional: Add rounded corners for thumbnails */
+  display: flex;
+  align-items: center;
+}
+
+.thumbnail.active {
+  opacity: 1;
+  border-color: #000; /* Optional: Highlight active thumbnail with a different border color */
+}
+
+.thumbnail img {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Set explicit height for thumbnails */
+  object-fit: cover; /* Maintain aspect ratio and cover the size */
+  border-radius: 4px; /* Match the border-radius of the thumbnail container */
+}

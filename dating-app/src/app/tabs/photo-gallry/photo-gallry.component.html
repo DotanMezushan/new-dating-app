@@ -1,0 +1,19 @@
+<div class="gallery-container">
+  <div class="main-image">
+    <img [src]="currentImage" alt="Main Image" *ngIf="currentImage"/>
+  </div>
+  <div class="navigation-buttons">
+    <button color="accent" mat-raised-button  (click)="previousImage()" [disabled]="currentIndex === 0">Previous</button>
+    <button color="accent" mat-raised-button (click)="nextImage()" [disabled]="currentIndex === (imagesUrl?.length ?? 0) - 1">Next</button>
+  </div>
+  <div class="thumbnails">
+    <div 
+      class="thumbnail" 
+      *ngFor="let image of imagesUrl; let i = index" 
+      [class.active]="i === currentIndex" 
+      (click)="currentIndex = i"
+    >
+      <img [src]="image" alt="Thumbnail"/>
+    </div>
+  </div>
+</div>
