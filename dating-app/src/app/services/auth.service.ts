@@ -65,7 +65,7 @@ export class AuthService {
   }
 
   navigateToDev(): void{
-    this.router.navigate(['/members']);
+    this.router.navigate(['/member/edit']);
   }
 
   getToken(): string  {

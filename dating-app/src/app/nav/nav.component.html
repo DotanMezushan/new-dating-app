@@ -15,6 +15,11 @@
                 <a [ngClass]="{'active-link': isActive('/login')}" 
                 (click)="navigate('/login')" >Login</a>
             </li>
+
+            <li *ngIf="isAuthenticated()"> 
+                <a [ngClass]="{'active-link': isActive('/member/edit')}" 
+                (click)="navigate('/member/edit')" >Edit</a>
+            </li>
             <li *ngIf="isAuthenticated()"> 
                 <a [ngClass]="{'active-link': isActive('/members')}" 
                 (click)="navigate('/members')" >Matches</a>

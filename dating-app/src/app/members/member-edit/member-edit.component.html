@@ -1,0 +1,103 @@
+<div class="member-container" *ngIf="member != undefined">
+    <div class="member-detail">
+        <mat-card class="profile-card">
+            <mat-card-header>
+                <mat-card-title>{{ member.knowAs }}</mat-card-title>
+
+                <div mat-card-avatar class="profile-image"
+                    [ngStyle]="{'background-image': 'url(' + currentPhotoUrl + ')'}"></div>
+            </mat-card-header>
+
+            <mat-card-content>
+                <p><strong></strong> {{ member.city }}, {{ member.country }}</p>
+                <p><strong>Age:</strong> {{ member.age }}</p>
+                <p><strong>Gender:</strong> {{ member.gender }}</p>
+                <p><strong>City:</strong> {{ member.city }}</p>
+                <p><strong>Country:</strong> {{ member.country }}</p>
+                <p><strong>Created:</strong> {{ member.created | date }}</p>
+                <p><strong>Last Active:</strong> {{ member.lastActive | date }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-icon-button (click)="previousPhoto()">
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
+                <button #ripple="matRipple" matRipple mat-flat-button color="accent" type="submit" (click)="saveChanges()">
+                    Save
+                  </button>
+
+                <button mat-icon-button (click)="nextPhoto()">
+                    <mat-icon>chevron_right</mat-icon>
+                </button>
+
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <div class="member-details-tab">
+
+        <div class="alert" *ngIf="memberForm.dirty">
+            You have made changes. Any unsaved changes will be lost
+          </div>
+          
+        <mat-tab-group animationDuration="1000ms">
+            <mat-tab label="Edit">
+                <form [formGroup]="memberForm">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Username</mat-label>
+                      <input matInput formControlName="userName" id="userName">
+                    </mat-form-field>
+                  
+                    <mat-form-field appearance="fill">
+                      <mat-label>Photo URL</mat-label>
+                      <input matInput formControlName="photoUrl" id="photoUrl">
+                    </mat-form-field>
+                  
+                    <mat-form-field appearance="fill">
+                      <mat-label>Age</mat-label>
+                      <input matInput formControlName="age" type="number" id="age">
+                    </mat-form-field>
+                  
+                    <mat-form-field appearance="fill">
+                      <mat-label>Known As</mat-label>
+                      <input matInput formControlName="knowAs" id="knowAs">
+                    </mat-form-field>
+                  
+                    <mat-form-field appearance="fill">
+                      <mat-label>Introduction</mat-label>
+                      <textarea matInput formControlName="introduction" id="introduction"></textarea>
+                    </mat-form-field>
+                  
+                    <mat-form-field appearance="fill">
+                      <mat-label>Looking For</mat-label>
+                      <textarea matInput formControlName="lookingFor" id="lookingFor"></textarea>
+                    </mat-form-field>
+                  
+                    <mat-form-field appearance="fill">
+                      <mat-label>Interests</mat-label>
+                      <textarea matInput formControlName="interests" id="interests"></textarea>
+                    </mat-form-field>
+                  
+                    <mat-form-field appearance="fill">
+                      <mat-label>City</mat-label>
+                      <input matInput formControlName="city" id="city">
+                    </mat-form-field>
+                  
+                    <mat-form-field appearance="fill">
+                      <mat-label>Country</mat-label>
+                      <input matInput formControlName="country" id="country">
+                    </mat-form-field>
+                  </form>
+                  
+
+
+            </mat-tab>
+
+            <mat-tab label="Edit Photos">
+             i will handle with it later !!!
+            </mat-tab>
+
+
+
+        </mat-tab-group>
+    </div>
+</div>

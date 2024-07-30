@@ -8,6 +8,7 @@ import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from './auth.guard';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 
 export const routes: Routes = [
     {
@@ -29,6 +30,9 @@ export const routes: Routes = [
             },
             {
                 path: 'members/:username',component : MemberDetailComponent , canActivate: [AuthGuard]
+            },
+            {
+                path: 'member/edit',component : MemberEditComponent , canActivate: [AuthGuard]
             },
             {
                 path: 'list',component : ListsComponent , canActivate: [AuthGuard]
