@@ -42,10 +42,22 @@ export class LoginComponent {
     });
   }
 
-  login(){
+  loginJeri(){
     this.isLoading = true;
     const login: LoginModel = {
       UserName: "jeri",
+      Password: "Pa$$w0rd"
+    };
+    this.authService.login(login).subscribe(() => {
+      this.isLoading = false;
+      this.authService.navigateToDev();
+    });
+  }
+
+  loginHughes(){
+    this.isLoading = true;
+    const login: LoginModel = {
+      UserName: "hughes",
       Password: "Pa$$w0rd"
     };
     this.authService.login(login).subscribe(() => {
