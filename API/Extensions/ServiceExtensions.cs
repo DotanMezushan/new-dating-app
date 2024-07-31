@@ -17,23 +17,51 @@ namespace API.Extensions
             return services;
         }
 
-        public static  IServiceCollection ConfigureJwtAuthentication (this IServiceCollection services , 
-            IConfiguration configuration)
+        //public static  IServiceCollection ConfigureJwtAuthentication (this IServiceCollection services , 
+        //    IConfiguration configuration)
+        //{
+        //    var secretKey = configuration.GetRequiredSection("TokenKey").Value;
+        //    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        //    .AddJwtBearer(options =>
+        //    {
+        //        options.TokenValidationParameters = new TokenValidationParameters
+        //        {
+        //            ValidateIssuer = true,
+        //            ValidateAudience = true,
+        //            ValidateLifetime = true,
+        //            ValidateIssuerSigningKey = true,
+        //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
+        //        };
+        //    });
+        //    return services;
+        //}
+
+        public static IServiceCollection ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            var secretKey = configuration.GetRequiredSection("TokenKey").Value;
+            var secretKey = configuration["Jwt:TokenKey"];
+            var issuer = configuration["Jwt:Issuer"];
+            var audience = configuration["Jwt:Audience"];
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
+                .AddJwtBearer(options =>
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
-                    ValidateIssuer = true,
-                    ValidateAudience = true
-                };
-            });
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey)),
+                        ValidIssuer = issuer,
+                        ValidAudience = audience
+                    };
+                });
+
             return services;
         }
+
+
+
 
         public static IServiceCollection ConfigureCors(this IServiceCollection services)
         {

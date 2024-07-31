@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { Member } from '../models/member.model';
 import { Router } from '@angular/router';
 import { SnackbarService } from './snackbar.service';
@@ -12,6 +12,7 @@ import { AuthService } from './auth.service';
 })
 export class MembersService {
   private baseUrl = environment.apiUrl;
+  members: Member[] = [];
 
   constructor(
     private http: HttpClient, 
@@ -21,20 +22,40 @@ export class MembersService {
   ) {}
 
   getMembers(): Observable<Member[]> {
-    return this.http.get<Member[]>(`${this.baseUrl}users`);
+    if(this.members != undefined) {
+      return of(this.members);
+    }else{
+      return this.http.get<Member[]>(`${this.baseUrl}users`).pipe(
+        map(members => {
+          this.members = members;
+          return this.members;
+        })
+      );
+    }
   }
 
   getMemberById(id: number): Observable<Member> {
-    const params = new HttpParams().set('id', id.toString());
-
-    return this.http.get<Member>(`${this.baseUrl}users/id`, { params });
+    const member = this.members.find(m => m.id === id);
+    if(member !== undefined){
+      return of(member);
+    }else{
+      const params = new HttpParams().set('id', id.toString());
+      return this.http.get<Member>(`${this.baseUrl}users/id`, { params });
+    }
   }
 
   getMemberByName(userName: string): Observable<Member> {
+    const member = this.members.find(m => m.userName === userName);
+    if(member !== undefined){
+      return of(member);
+    }else{
+      const params = new HttpParams().set('userName', userName);
+      return this.http.get<Member>(`${this.baseUrl}users/userName`, {  params });
+    }
+  }
 
-    const params = new HttpParams().set('userName', userName);
-
-    return this.http.get<Member>(`${this.baseUrl}users/userName`, {  params });
+  updateMember(member: Member): Observable<Member> {
+    return this.http.put<Member>(`${this.baseUrl}users`, member);
   }
 
 }

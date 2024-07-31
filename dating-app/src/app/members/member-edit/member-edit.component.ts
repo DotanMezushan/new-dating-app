@@ -76,7 +76,6 @@ export class MemberEditComponent implements OnInit {
           this.member = member;
           this.currentPhotoUrl = this.member.photoUrl;
           this.initializeForm();
-          this.snackbarService.showSnackbar("You have made changes. Any unsaved changes will be lost", null,3000);
         });
     } else {
       console.log('no user name, loadMember member-edit.component.ts');
@@ -103,10 +102,10 @@ export class MemberEditComponent implements OnInit {
 
   initializeForm() {
     this.memberForm = this.fb.group({
-      userName: ['', Validators.required],
-      photoUrl: [''],
-      age: ['', Validators.required],
-      knowAs: [''],
+      // userName: ['', Validators.required],
+      // photoUrl: [''],
+      // age: ['', Validators.required],
+      // knowAs: [''],
       introduction: [''],
       lookingFor: [''],
       interests: [''],
@@ -116,7 +115,7 @@ export class MemberEditComponent implements OnInit {
     if (this.member) {
       this.memberForm.patchValue(this.member as any);
       this.memberForm.valueChanges.subscribe((value: any) => {
-        this.launchRipple();
+        this.launchRipple(); 
       });
     }
   }
@@ -124,9 +123,13 @@ export class MemberEditComponent implements OnInit {
   saveChanges() {
     if (this.memberForm.valid) {
       const editedMember: Member = this.memberForm.getRawValue();
-      console.log(editedMember);
+      this.membersService.updateMember(editedMember).subscribe(()=>{
+        this.snackbarService.showSnackbar("פרופיל עודכן", null,3000);
+        this.loadMember();
+      });
+
       // Handle form submission, e.g., send editedMember to your API
-      this.launchRipple();
+      //this.launchRipple();
     }
   }
 

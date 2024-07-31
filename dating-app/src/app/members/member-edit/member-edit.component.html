@@ -21,7 +21,7 @@
                 <button mat-icon-button (click)="previousPhoto()">
                     <mat-icon>chevron_left</mat-icon>
                 </button>
-                <button #ripple="matRipple" matRipple mat-flat-button color="accent" type="submit" (click)="saveChanges()">
+                <button [disabled]="!this.memberForm.dirty" #ripple="matRipple" matRipple mat-flat-button color="accent" type="submit" (click)="saveChanges()">
                     Save
                   </button>
 
@@ -38,11 +38,11 @@
         <div class="alert" *ngIf="memberForm.dirty">
             You have made changes. Any unsaved changes will be lost
           </div>
-          
+
         <mat-tab-group animationDuration="1000ms">
             <mat-tab label="Edit">
                 <form [formGroup]="memberForm">
-                    <mat-form-field appearance="fill">
+                    <!-- <mat-form-field appearance="fill">
                       <mat-label>Username</mat-label>
                       <input matInput formControlName="userName" id="userName">
                     </mat-form-field>
@@ -60,7 +60,7 @@
                     <mat-form-field appearance="fill">
                       <mat-label>Known As</mat-label>
                       <input matInput formControlName="knowAs" id="knowAs">
-                    </mat-form-field>
+                    </mat-form-field> -->
                   
                     <mat-form-field appearance="fill">
                       <mat-label>Introduction</mat-label>

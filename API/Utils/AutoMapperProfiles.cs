@@ -12,6 +12,12 @@ namespace API.Utils
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src =>
                 src.Photos.FirstOrDefault(x => x.IsMain).Url));
             CreateMap<Photo, PhotoDto>();
+            CreateMap<MemberUpdateDto, AppUser>()
+                .ForMember(dest => dest.Introduction, opt => opt.MapFrom(src => src.Introduction))
+                .ForMember(dest => dest.LookingFor, opt => opt.MapFrom(src => src.LookingFor))
+                .ForMember(dest => dest.Interests, opt => opt.MapFrom(src => src.Interests))
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City))
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country));
 
         }
     }

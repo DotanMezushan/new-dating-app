@@ -1,12 +1,10 @@
 ﻿using API.Data;
 using API.DTOs;
-using API.Entities;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -22,7 +20,7 @@ namespace API.Controllers
         }
 
         [HttpGet("username")]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult<MemberDto>> GetUserByUserName(string userName)
         {
             //var user = await userRepository.GetUserByUserNameAsync(userName);
@@ -32,7 +30,7 @@ namespace API.Controllers
         }
 
         [HttpGet("id")]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult<MemberDto>> GetUserByUserId(int id)
         {
             //var user = await userRepository.GetUserByIdAsync(id);
@@ -86,6 +84,36 @@ namespace API.Controllers
 
         //    return null; // Or handle accordingly
         //}
+
+        [HttpPut]
+        [Authorize]
+        public async Task<ActionResult> updateUser(MemberUpdateDto memberUpdateDto)
+        {
+            var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await userRepository.GetUserByUserNameAsync(userName);
+            try
+            {
+                user = _mapper.Map(memberUpdateDto, user);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+             userRepository.Update(user);
+            if (await userRepository.SaveAllAsync())
+            {
+                return NoContent();
+            }
+            else
+            {
+                return BadRequest("no user has update");
+            }
+
+        }
 
 
 
