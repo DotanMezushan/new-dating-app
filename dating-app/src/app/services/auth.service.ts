@@ -17,46 +17,44 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private snackbarService: SnackbarService,
+    private snackbarService: SnackbarService
   ) {}
 
   baseUrl = environment.apiUrl;
 
   login(model: LoginModel): Observable<any> {
-    return this.http.post<UserResponse>(`${this.baseUrl}Account/login`, model).pipe(
-      map((response: UserResponse) => {
-        if (response && response.token) {
-          this.currentUserSource.next(response);
-          this.isAuthenticated = true;
-          localStorage.setItem('authToken', response.token);
-        }
-      })
-    );
+    return this.http
+      .post<UserResponse>(`${this.baseUrl}Account/login`, model)
+      .pipe(
+        map((response: UserResponse) => {
+          if (response && response.token) {
+            this.setCurrentUser(response);
+          }
+        })
+      );
   }
 
   register(model: LoginModel): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}Account/register`, model).pipe(
       map((response: UserResponse) => {
         if (response && response.token) {
-          this.currentUserSource.next(response);
-          this.isAuthenticated = true;
-          localStorage.setItem('authToken', response.token);
+          this.setCurrentUser(response);
         }
       })
     );
   }
 
   setCurrentUser(user: UserResponse) {
-    if (user.token) {
-      localStorage.setItem('authToken', user.token);
-    }
+    this.currentUserSource.next(user);
+    this.isAuthenticated = true;
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   setLogOut() {
     this.currentUserSource.next(null);
     this.isAuthenticated = false;
-    localStorage.removeItem('authToken');
-    this.snackbarService.showSnackbar("You logged out", null, 3000);
+    localStorage.removeItem('user');
+    this.snackbarService.showSnackbar('You logged out', null, 3000);
     this.router.navigate(['/login']);
   }
 
@@ -64,16 +62,16 @@ export class AuthService {
     this.router.navigate(['/home']);
   }
 
-  navigateToDev(): void{
+  navigateToDev(): void {
     this.router.navigate(['/member/edit']);
   }
 
-  getToken(): string  {
-    let tokenString = localStorage.getItem('authToken');
-    if(tokenString) {
-      return tokenString;
-    }else{
-      return "";
+  getToken(): string {
+    let user : UserResponse = JSON.parse(localStorage.getItem('user') as any); 
+    if (user && user.token) {
+      return user.token;
+    } else {
+      return '';
     }
   }
 }

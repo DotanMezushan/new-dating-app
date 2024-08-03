@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace API.Sevices
+namespace API.Services
 {
     public class TokenService : ITokenService
     {
@@ -14,34 +14,6 @@ namespace API.Sevices
         {
             _symmetricSecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["jwt:TokenKey"]));
         }
-
-        //public string CreateToken(AppUser user)
-        //{
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.NameIdentifier, user.UserName) // Updated to ClaimTypes.NameIdentifier
-        //    };
-
-        //    var creds = new SigningCredentials(_symmetricSecurityKey, SecurityAlgorithms.HmacSha512Signature);
-        //    var tokenDescriptor = new SecurityTokenDescriptor
-        //    {
-        //        Subject = new ClaimsIdentity(claims),
-        //        Expires = DateTime.Now.AddMinutes(30),
-        //        SigningCredentials = creds
-        //    };
-
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    try
-        //    {
-        //        var token = tokenHandler.CreateToken(tokenDescriptor);
-        //        return tokenHandler.WriteToken(token);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Log the exception
-        //        return null;
-        //    }
-        //}
 
         public string CreateToken(AppUser user)
         {

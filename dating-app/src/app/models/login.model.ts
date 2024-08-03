@@ -5,5 +5,6 @@ export class LoginModel {
 
 export class UserResponse {
   public userName: string | undefined;
-  public token: string | undefined; ;
+  public token: string | undefined;
+  public photoUrl: string | undefined;
 }

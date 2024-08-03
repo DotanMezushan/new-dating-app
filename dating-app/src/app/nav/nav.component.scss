@@ -32,4 +32,18 @@ a {
     display: inline-block;
     margin-left: 7px;
   }
+
+  .user-photo-container {
+    display: flex;
+    align-items: center; /* Aligns image vertically */
+    margin-left: 10px; /* Adjust spacing as needed */
+  }
+  
+  .user-photo-container img {
+    border-radius: 50%; /* Circular image */
+    border: 2px solid #fff; /* White border around the image */
+    width: 40px; /* Adjust width as needed */
+    height: 40px; /* Adjust height as needed */
+    object-fit: cover; /* Ensures the image covers the container */
+  }
   

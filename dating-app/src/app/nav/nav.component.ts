@@ -76,4 +76,13 @@ export class NavComponent implements OnInit , OnDestroy {
     }
   }
 
+  getPhotoUrl(): string {
+    let user : UserResponse = JSON.parse(localStorage.getItem('user') as any); 
+    if(user &&  user.photoUrl){
+      return user.photoUrl;
+    }else{
+      return "";
+    }
+  }
+
 }

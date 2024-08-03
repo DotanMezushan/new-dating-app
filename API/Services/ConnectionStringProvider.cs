@@ -1,7 +1,7 @@
 ﻿using API.Interfaces;
 using Microsoft.Extensions.Configuration;
 
-namespace API.Sevices
+namespace API.Services
 {
     public class ConnectionStringProvider : IConnectionStringProvider
     {

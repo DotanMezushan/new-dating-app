@@ -17,25 +17,6 @@ namespace API.Extensions
             return services;
         }
 
-        //public static  IServiceCollection ConfigureJwtAuthentication (this IServiceCollection services , 
-        //    IConfiguration configuration)
-        //{
-        //    var secretKey = configuration.GetRequiredSection("TokenKey").Value;
-        //    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        //    .AddJwtBearer(options =>
-        //    {
-        //        options.TokenValidationParameters = new TokenValidationParameters
-        //        {
-        //            ValidateIssuer = true,
-        //            ValidateAudience = true,
-        //            ValidateLifetime = true,
-        //            ValidateIssuerSigningKey = true,
-        //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
-        //        };
-        //    });
-        //    return services;
-        //}
-
         public static IServiceCollection ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             var secretKey = configuration["Jwt:TokenKey"];

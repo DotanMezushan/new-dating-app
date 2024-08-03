@@ -3,12 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using API.Interfaces;
 using API.Extensions;
-using API.Sevices;
+using API.Services;
 using API.Data;
 using API.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.ConfigureDbContext(builder.Configuration);
 builder.Services.AddSingleton<IConnectionStringProvider, ConnectionStringProvider>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);

@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SnackbarService } from '../../services/snackbar.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { PhotoEditorComponent } from "../../tabs/photo-editor/photo-editor.component";
 
 @Component({
   selector: 'app-member-edit',
@@ -36,8 +37,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FormsModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    MatProgressSpinnerModule
-  ],
+    MatProgressSpinnerModule,
+    PhotoEditorComponent
+],
   templateUrl: './member-edit.component.html',
   styleUrls: ['./member-edit.component.scss'],
 })
@@ -143,6 +145,10 @@ export class MemberEditComponent implements OnInit {
       }
     });
     rippleRef.fadeOut();
+  }
+
+  onMainPhotoUrlChanged( newUrl: string) {
+    this.currentPhotoUrl = newUrl;
   }
   
   

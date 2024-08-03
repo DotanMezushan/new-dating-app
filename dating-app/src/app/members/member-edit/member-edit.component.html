@@ -42,26 +42,7 @@
         <mat-tab-group animationDuration="1000ms">
             <mat-tab label="Edit">
                 <form [formGroup]="memberForm">
-                    <!-- <mat-form-field appearance="fill">
-                      <mat-label>Username</mat-label>
-                      <input matInput formControlName="userName" id="userName">
-                    </mat-form-field>
-                  
-                    <mat-form-field appearance="fill">
-                      <mat-label>Photo URL</mat-label>
-                      <input matInput formControlName="photoUrl" id="photoUrl">
-                    </mat-form-field>
-                  
-                    <mat-form-field appearance="fill">
-                      <mat-label>Age</mat-label>
-                      <input matInput formControlName="age" type="number" id="age">
-                    </mat-form-field>
-                  
-                    <mat-form-field appearance="fill">
-                      <mat-label>Known As</mat-label>
-                      <input matInput formControlName="knowAs" id="knowAs">
-                    </mat-form-field> -->
-                  
+        
                     <mat-form-field appearance="fill">
                       <mat-label>Introduction</mat-label>
                       <textarea matInput formControlName="introduction" id="introduction"></textarea>
@@ -93,7 +74,7 @@
             </mat-tab>
 
             <mat-tab label="Edit Photos">
-             i will handle with it later !!!
+                <app-photo-editor [member]="member" (mainPhotoUrlChanged)="onMainPhotoUrlChanged($event)" ></app-photo-editor>
             </mat-tab>
 
 
