@@ -34,7 +34,7 @@ export class AuthService {
       );
   }
 
-  register(model: LoginModel): Observable<any> {
+  register(model: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}Account/register`, model).pipe(
       map((response: UserResponse) => {
         if (response && response.token) {

@@ -11,6 +11,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AuthService } from '../../services/auth.service';
 import {LoginModel} from '../../models/login.model';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 
@@ -24,11 +25,12 @@ import {LoginModel} from '../../models/login.model';
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
-    FlexLayoutModule
-      ],
+    FlexLayoutModule,
+    ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -55,7 +57,7 @@ export class SignupComponent implements OnInit{
     };
     
 
-    this.authService.register(signup).subscribe((res : any) => {
+    this.authService.register(form.value).subscribe((res : any) => {
       console.log(res);
       this.authService.navigateToHomePage();
     }, error => {

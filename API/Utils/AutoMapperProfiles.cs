@@ -18,7 +18,7 @@ namespace API.Utils
                 .ForMember(dest => dest.Interests, opt => opt.MapFrom(src => src.Interests))
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City))
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country));
-
+            CreateMap<RegisterDto, AppUser>();
         }
     }
 }

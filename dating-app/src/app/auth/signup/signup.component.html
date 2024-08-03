@@ -7,24 +7,26 @@
           (ngSubmit)="onSubmit(f)"
           >
         <mat-form-field>
-            <input type="email"
+            <input 
+            type="email"
                 matInput
                 placeholder="Your email"
                 ngModel
-                name="email"
+                name="UserName"
                 email
                 required
-                #emailInpit = "ngModel"
+                #emailInput = "ngModel"
             >
-            <mat-error  *ngIf="emailInpit.hasError('email')">E-mail is invalid</mat-error>
-            <mat-error *ngIf="emailInpit.hasError('required')" >Field must not be empty</mat-error>
+            <mat-error  *ngIf="emailInput.hasError('email')">E-mail is invalid</mat-error>
+            <mat-error *ngIf="emailInput.hasError('required')" >Field must not be empty</mat-error>
         </mat-form-field>
+
         <mat-form-field hintLabel="Should be at least 6 characters long">
             <input type="password"
                 matInput
                 placeholder="Your password"
                 ngModel
-                name="password"
+                name="Password"
                 minlength="6"
                 required
                 #pwInput = "ngModel"
@@ -39,20 +41,72 @@
                 placeholder="Your birthdate"
                 [max]="maxDate"
                 ngModel
-                name="birthdate"
+                name="DateOfBirth"
                 required
             />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+
+        <mat-form-field hintLabel="Should be your name">
+            <input 
+                type="text"
+                matInput
+                placeholder="Your name"
+                ngModel
+                name="KnowAs"
+                required
+            >
+        </mat-form-field>
+
+        <mat-form-field >
+            <input 
+                type="text"
+                matInput
+                placeholder="Enter your city"
+                ngModel
+                name="City"
+                required
+            >
+        </mat-form-field>
+        
+        <mat-form-field >
+            <input 
+                type="text"
+                matInput
+                placeholder="Enter your country"
+                ngModel
+                name="Country"
+                required
+            >
+        </mat-form-field>
+
+        <mat-radio-group
+        hintLabel="Select your gender"
+        aria-label="Select your gender"
+        ngModel
+        name="Gender"
+        required
+        fxLayout="row"
+        fxLayoutAlign="space-around center"
+        #gender = "ngModel"
+      >
+        <mat-radio-button value="male">Male</mat-radio-button>
+        <mat-radio-button value="female">Female</mat-radio-button>
+      </mat-radio-group>
         <mat-checkbox 
         ngModel
-         name="agree"
+         name="Agree"
           required 
           color="primary"
         >Agree to the terms.</mat-checkbox>
 
-        <button *ngIf="!isLoading" [disabled]="f.invalid" false mat-raised-button type="submit" color="primary" >
+        <button *ngIf="!isLoading"
+        [disabled]="f.invalid"
+         mat-raised-button 
+         type="submit"
+          color="primary"
+            >
             Submit
         </button>
         <mat-spinner *ngIf="isLoading"></mat-spinner>

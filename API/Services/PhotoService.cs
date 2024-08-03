@@ -14,6 +14,7 @@ namespace API.Services
         {
             var acc = new Account(config.Value.CloudName, config.Value.ApiKey, config.Value.ApiSecret);
             cloudinary = new Cloudinary(acc);
+            cloudinary.Api.Secure = true;
         }
 
         public async Task<ImageUploadResult> AddPhotoAsync(IFormFile file)
@@ -29,7 +30,7 @@ namespace API.Services
                         .Height(500)
                         .Width(500)
                         .Crop("fill")
-                        .Gravity("auto:face") // auto:face לזיהוי פנים אוטומטי
+                        .Gravity("face") // auto:face לזיהוי פנים אוטומטי
                 };
 
                 uploadResult = await cloudinary.UploadAsync(uploadParams);
