@@ -41,13 +41,8 @@ export class MemberListComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private membersService: MembersService,
-    private authService: AuthService
   ) {
-    this.authService.currentUser$.pipe(take(1)).subscribe((user: any) => {
-      this.user = user;
-      this.userParams = new UserParams(user);
-      this.initializeForm();
-    });
+      this.userParams = this.membersService.getUserParams();
   }
 
   ngOnInit(): void {
@@ -63,15 +58,18 @@ export class MemberListComponent implements OnInit {
   }
 
   loadMembers(): void {
+    this.membersService.setUserParams(this.userParams);
     this.membersService.getMembers(this.userParams).subscribe(response => {
       this.members = response.result;
       this.pagination = response.pagination;
+      this.initializeForm();
     });
   }
 
   onPageChanged(event: PageEvent): void {
     this.userParams.pageNumber = event.pageIndex + 1;
     this.userParams.pageSize = event.pageSize;
+    this.membersService.setUserParams(this.userParams);
     this.loadMembers();
   }
 
@@ -81,6 +79,7 @@ export class MemberListComponent implements OnInit {
       this.userParams.minAge = this.filterForm.get('minAge')?.value;
       this.userParams.maxAge = this.filterForm.get('maxAge')?.value;
       this.userParams.pageNumber = 1;
+      this.membersService.setUserParams(this.userParams);
       this.loadMembers();
     }
   }
@@ -90,13 +89,14 @@ export class MemberListComponent implements OnInit {
       this.userParams.gender = this.filterForm.get('gender')?.value;
       this.userParams.orderBy = orderBy;
       this.userParams.pageNumber = 1;
+      this.membersService.setUserParams(this.userParams);
       this.loadMembers();
     }
   }
 
 
   resetFilters(): void {
-    this.userParams = new UserParams(this.user);
+    this.userParams = this.membersService.resetUserParams();
     this.filterForm.reset({
       gender: this.userParams.gender,
       minAge: this.userParams.minAge,
