@@ -19,6 +19,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SnackbarService } from '../../services/snackbar.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PhotoEditorComponent } from "../../tabs/photo-editor/photo-editor.component";
+import { MomentModule } from 'ngx-moment';
+
 
 @Component({
   selector: 'app-member-edit',
@@ -38,8 +40,9 @@ import { PhotoEditorComponent } from "../../tabs/photo-editor/photo-editor.compo
     MatFormFieldModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    PhotoEditorComponent
-],
+    PhotoEditorComponent,
+    MomentModule
+  ],
   templateUrl: './member-edit.component.html',
   styleUrls: ['./member-edit.component.scss'],
 })

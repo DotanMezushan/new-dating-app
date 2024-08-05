@@ -16,5 +16,18 @@ namespace API.Extensions
                 return "";
             }
         }
+
+        public static int GetUserId(this ClaimsPrincipal User)
+        {
+            var id = User.FindFirst(ClaimTypes.Name)?.Value;
+            if (id != null)
+            {
+                return int.Parse(id);
+            }
+            else
+            {
+                return -1;
+            }
+        }
     }
 }

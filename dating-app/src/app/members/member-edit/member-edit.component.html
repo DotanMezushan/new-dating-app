@@ -14,8 +14,8 @@
                 <p><strong>Gender:</strong> {{ member.gender }}</p>
                 <p><strong>City:</strong> {{ member.city }}</p>
                 <p><strong>Country:</strong> {{ member.country }}</p>
-                <p><strong>Created:</strong> {{ member.created | date }}</p>
-                <p><strong>Last Active:</strong> {{ member.lastActive | date }}</p>
+                <p><strong>Created:</strong> {{ member.created | date: 'dd MMM yyyy' }}</p>
+                <p><strong>Last Active:</strong> {{ member.lastActive | amTimeAgo}}</p>
             </mat-card-content>
             <mat-card-actions>
                 <button mat-icon-button (click)="previousPhoto()">

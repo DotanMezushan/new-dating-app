@@ -85,6 +85,16 @@ export class MemberListComponent implements OnInit {
     }
   }
 
+  onFilterOrderBy(orderBy : string ): void {
+    if (this.filterForm.valid) {
+      this.userParams.gender = this.filterForm.get('gender')?.value;
+      this.userParams.orderBy = orderBy;
+      this.userParams.pageNumber = 1;
+      this.loadMembers();
+    }
+  }
+
+
   resetFilters(): void {
     this.userParams = new UserParams(this.user);
     this.filterForm.reset({

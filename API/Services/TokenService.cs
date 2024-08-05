@@ -18,10 +18,10 @@ namespace API.Services
         public string CreateToken(AppUser user)
         {
             var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.NameIdentifier, user.UserName)
-        // Add additional claims if needed
-    };
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.UserName),
+                new Claim(ClaimTypes.Name, user.Id.ToString())
+            };
 
             var creds = new SigningCredentials(_symmetricSecurityKey, SecurityAlgorithms.HmacSha512Signature);
             var tokenDescriptor = new SecurityTokenDescriptor

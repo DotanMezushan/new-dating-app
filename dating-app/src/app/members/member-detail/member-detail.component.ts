@@ -8,11 +8,13 @@ import {MatCardModule} from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';
 import { PhotoGalleryComponent } from "../../tabs/photo-gallry/photo-gallry.component";
+import { MomentModule } from 'ngx-moment';
+
 
 @Component({
   selector: 'app-member-detail',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, RouterModule, MatTabsModule, PhotoGalleryComponent],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, RouterModule, MatTabsModule, PhotoGalleryComponent, MomentModule],
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.scss']
 })

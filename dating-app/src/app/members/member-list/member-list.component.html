@@ -25,6 +25,8 @@
       <div class="button-container">
         <button mat-raised-button color="primary" [disabled]="filterForm.invalid" type="submit">Filter</button>
         <button mat-raised-button color="accent" type="button" (click)="resetFilters()">Reset Filters</button>
+        <button mat-raised-button style="background-color: #4CAF50; color: #fff" type="button" (click)="onFilterOrderBy('created')">Newest Member</button>
+        <button mat-raised-button  style="background-color: #95af4c; color: #fff;" type="button" (click)="onFilterOrderBy('lastActive')">Last Active</button>
       </div>
     </form>
   </div>
