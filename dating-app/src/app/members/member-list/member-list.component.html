@@ -1,4 +1,52 @@
-<div class="member-list"  *ngFor="let member of members">
-    <app-member-card [member]="member"></app-member-card>
+<div class="member-list">
+  <div class="filter-container">
+    <form [formGroup]="filterForm" (ngSubmit)="onFilter()">
+      <mat-form-field appearance="fill">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option value="male">Male</mat-option>
+          <mat-option value="female">Female</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Min Age</mat-label>
+        <input matInput type="number" formControlName="minAge">
+        <mat-error *ngIf="filterForm.get('minAge')?.hasError('min')">
+          Minimum age is 18
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Max Age</mat-label>
+        <input matInput type="number" formControlName="maxAge">
+      </mat-form-field>
+
+      <div class="button-container">
+        <button mat-raised-button color="primary" [disabled]="filterForm.invalid" type="submit">Filter</button>
+        <button mat-raised-button color="accent" type="button" (click)="resetFilters()">Reset Filters</button>
+      </div>
+    </form>
   </div>
-  
+
+  <div class="error-container">
+    <mat-error *ngIf="filterForm.errors && filterForm.errors['ageRangeCheck']" class="full-width-error">
+      Maximum age must be greater than minimum age
+    </mat-error>
+  </div>
+
+  <div class="members-container">
+    <div *ngFor="let member of members">
+      <app-member-card [member]="member"></app-member-card>
+    </div>
+  </div>
+
+  <div class="paginator-container">
+    <mat-paginator [length]="pagination.totalItems || 0"
+                   [pageSize]="pagination.itemsPerPage || 5"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   [showFirstLastButtons]="true"
+                   (page)="onPageChanged($event)">
+    </mat-paginator>
+  </div>
+</div>

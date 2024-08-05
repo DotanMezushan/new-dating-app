@@ -1,12 +1,80 @@
 .member-list {
-  display: inline flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  @media (max-width: 400px) {
+  .filter-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; // Stack form fields vertically
+    align-items: center; // Center form fields horizontally
+    width: 100%; // Ensure the container takes full width
+    margin-bottom: 16px;
+
+    form {
+      padding-top: 1rem;
+      display: flex;
+      flex-wrap: wrap; // Allow form fields to wrap if needed
+      gap: 16px; // Space between form fields and buttons
+      width: 100%; // Ensure the form takes full width
+      max-width: 1000px; // Limit the width of the form for better alignment
+
+      mat-form-field {
+        flex: 1 1 200px; // Allow form fields to grow and shrink with a minimum width
+        max-width: 300px; // Make form fields smaller
+        display: flex;
+        position: relative; // Allows for absolute positioning of mat-error
+
+        mat-error {
+          position: absolute;
+          bottom: -24px; // Adjust this value as needed
+          left: 0;
+          width: 100%;
+          color: red;
+          font-size: 0.75rem; // Smaller font size for error messages
+        }
+      }
+
+      .button-container {
+        display: flex;
+        gap: 16px;
+        width: 100%;
+        justify-content: center;
+        margin-top: 16px;
+      }
+    }
+  }
+
+  .error-container {
+    width: 100%; // Ensure the error container takes full width
+    display: flex;
+    justify-content: center; // Center the error message
+    margin-bottom: 16px; // Space below the error message
+
+    mat-error.full-width-error {
+      width: 100%; // Ensure the error message takes full width
+      text-align: center; // Center the text
+      color: red;
+      font-size: 0.75rem; // Smaller font size for error messages
+    }
+  }
+
+  .members-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 16px;
+
+    app-member-card {
+      width: 100%;
+      max-width: 300px; // Limit the max width of member cards
+    }
+  }
+
+  .paginator-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 16px;
   }
 }

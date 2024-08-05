@@ -41,19 +41,17 @@ namespace API.Controllers
 
 
             await _context.Users.AddAsync(user);
-            try
-            {
-                await _context.SaveChangesAsync();
-
-            }
-            catch (Exception ex) { 
-
-            }
-
+            await _context.SaveChangesAsync();
 
             return Ok(
-                    new UserDto() { UserName= user.UserName , Token = _tokenSrevice.CreateToken(user), KnowAs = user.KnowAs}
-                );
+                    new UserDto()
+                        { 
+                            UserName= user.UserName,
+                            Token = _tokenSrevice.CreateToken(user), 
+                            KnowAs = user.KnowAs,
+                            Gender = user.Gender,
+                        }
+                    );
         }
 
         [HttpPost("login")]
@@ -80,7 +78,8 @@ namespace API.Controllers
                        UserName = user.UserName,
                        Token = _tokenSrevice.CreateToken(user),
                        PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain)?.Url,
-                       KnowAs = user.KnowAs 
+                       KnowAs = user.KnowAs ,
+                       Gender = user.Gender,
                    }
                );
             }
