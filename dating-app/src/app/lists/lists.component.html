@@ -6,8 +6,8 @@
         </div>
       </div>
       <div class="paginator-container">
-        <mat-paginator [length]="paginationILike?.totalItems || 0"
-                       [pageSize]="paginationILike?.itemsPerPage || 5"
+        <mat-paginator [length]="paginationILike.totalItems || 0"
+                       [pageSize]="paginationILike.itemsPerPage || 5"
                        [pageSizeOptions]="[5, 10, 20]"
                        [showFirstLastButtons]="true"
                        (page)="onPageChanged($event, 'liked')">
@@ -21,8 +21,8 @@
         </div>
       </div>
       <div class="paginator-container">
-        <mat-paginator [length]="paginationLikeBy?.totalItems || 0"
-                       [pageSize]="paginationLikeBy?.itemsPerPage || 5"
+        <mat-paginator [length]="paginationLikeBy.totalItems "
+                       [pageSize]="paginationLikeBy.itemsPerPage"
                        [pageSizeOptions]="[5, 10, 20]"
                        [showFirstLastButtons]="true"
                        (page)="onPageChanged($event, 'likeBy')">
