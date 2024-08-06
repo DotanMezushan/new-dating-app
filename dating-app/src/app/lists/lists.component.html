@@ -1,1 +1,33 @@
-<p>lists works!</p>
+<mat-tab-group animationDuration="2000ms">
+    <mat-tab label="Members I Like">
+      <div class="members-container">
+        <div *ngFor="let member of membersILike">
+          <app-member-card [member]="member" [withIcons]="false"></app-member-card>
+        </div>
+      </div>
+      <div class="paginator-container">
+        <mat-paginator [length]="paginationILike?.totalItems || 0"
+                       [pageSize]="paginationILike?.itemsPerPage || 5"
+                       [pageSizeOptions]="[5, 10, 20]"
+                       [showFirstLastButtons]="true"
+                       (page)="onPageChanged($event, 'liked')">
+        </mat-paginator>
+      </div>
+    </mat-tab>
+    <mat-tab label="Members Like Me">
+      <div class="members-container">
+        <div *ngFor="let member of membersLikeBy">
+          <app-member-card [member]="member" [withIcons]="false"></app-member-card>
+        </div>
+      </div>
+      <div class="paginator-container">
+        <mat-paginator [length]="paginationLikeBy?.totalItems || 0"
+                       [pageSize]="paginationLikeBy?.itemsPerPage || 5"
+                       [pageSizeOptions]="[5, 10, 20]"
+                       [showFirstLastButtons]="true"
+                       (page)="onPageChanged($event, 'likeBy')">
+        </mat-paginator>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  

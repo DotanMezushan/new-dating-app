@@ -3,9 +3,11 @@ import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
 import { take, switchMap, catchError, of, throwError } from 'rxjs';
 import { UserResponse } from '../models/login.model';
+import { SnackbarService } from '../services/snackbar.service';
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
+  const snackbarService = inject(SnackbarService);
   if(authService.isAuthenticated){
     return authService.currentUser$.pipe(
       take(1),
@@ -25,6 +27,9 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
       }),
       catchError(error => {
         console.error('Error in JWT Interceptor:', error);
+        if(error && error.error){
+          snackbarService.showSnackbar(error.error, null, 3000);
+        }
         return throwError(error); // Rethrow the error after logging
       })
     );

@@ -16,6 +16,7 @@ builder.Services.AddSingleton<IConnectionStringProvider, ConnectionStringProvide
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 builder.Services.AddScoped<ITokenService,TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ILikesRepository, LikesRepository>();
 builder.Services.AddScoped<LogUserActivity>();
 builder.Services.ConfigureJwtAuthentication(builder.Configuration);
 builder.Services.AddControllers()

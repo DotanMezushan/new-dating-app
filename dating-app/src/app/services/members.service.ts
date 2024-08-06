@@ -99,6 +99,16 @@ export class MembersService {
     );
   }
 
+  addLike(userName: string){
+    return this.http.post<any>(this.baseUrl + 'likes/'+ userName,{})
+  }
+
+  getLikes(predicate: string, pageNumber: number, pageSize : number ) {
+    let params = this.getPaginationHeaders(pageNumber,pageSize);
+    params = params.append('predicate', predicate);
+    return this.getPaginatedReult<any>(this.baseUrl + 'likes', params);
+  }
+
   private getPaginatedReult<T>(url: string, params: HttpParams): Observable<PaginatedResult<T>> {
     const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
 
