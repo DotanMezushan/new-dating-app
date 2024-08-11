@@ -13,7 +13,8 @@ import { AuthService } from '../services/auth.service';
   selector: 'app-nav',
   standalone: true,
   imports: 
-  [CommonModule,
+  [
+    CommonModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,

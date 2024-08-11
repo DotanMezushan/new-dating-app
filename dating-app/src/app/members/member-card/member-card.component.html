@@ -6,7 +6,7 @@
       <div class="profile-icons" *ngIf="withIcons">
         <mat-icon [routerLink]="['/members/', member.userName]" >person</mat-icon>
         <mat-icon (click)="addLike(member)" >favorite</mat-icon>
-        <mat-icon>comment</mat-icon>
+        <mat-icon [routerLink]="['/members', member.userName, 'messages']">comment</mat-icon>
       </div>
     </div>
   </div>

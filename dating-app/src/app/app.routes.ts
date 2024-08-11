@@ -33,6 +33,9 @@ export const routes: Routes = [
                 path: 'members/:username',component : MemberDetailComponent , canActivate: [AuthGuard]
             },
             {
+                path: 'members/:username/messages', component: MemberDetailComponent, canActivate: [AuthGuard]
+            },
+            {
                 path: 'member/edit',component : MemberEditComponent , 
                 canActivate: [AuthGuard],canDeactivate: [preventUnsavedChangesGuard]
             },

@@ -13,7 +13,7 @@ namespace API.Controllers
     {
         protected  DataContext _context;
         protected IConnectionStringProvider _connectionStringProvider;
-        protected readonly IMapper _mapper;
+        protected IMapper _mapper;
 
         public BaseApiController(DataContext context, IConnectionStringProvider connectionStringProvider)
         {
