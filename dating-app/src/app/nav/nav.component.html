@@ -36,6 +36,22 @@
                 <a [ngClass]="{'active-link': isActive('/messages')}" 
                 (click)="navigate('/messages')" >Messages</a>
             </li>
+
+            <ng-container *appHasRole="allowedRoles;">
+                    <li *ngIf="isAuthenticated()" >
+                        <a [ngClass]="{'active-link': isActive('/admin')}" 
+                           (click)="navigate('/admin')">Admin Panel</a>
+                      </li>  
+            </ng-container>
+
+            <!-- <ng-container >
+                    <li *ngIf="isAuthenticated()" >
+                        <a [ngClass]="{'active-link': isActive('/admin')}" 
+                           (click)="navigate('/admin')">Admin Panel</a>
+                      </li>  
+            </ng-container> -->
+            
+        
             <li *ngIf="isAuthenticated()"> <a (click)="onLogout()">Logout</a> </li>
 
         </ul>

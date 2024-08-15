@@ -4,12 +4,13 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './auth/login/login.component';
+import { HasRoleDirective } from './directives/has-role.directive';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, CommonModule,
-    NavComponent, LoginComponent, RouterOutlet,
+    NavComponent, LoginComponent, RouterOutlet,HasRoleDirective  
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'] // Corrected from styleUrl to styleUrls

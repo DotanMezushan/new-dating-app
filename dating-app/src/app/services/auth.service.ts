@@ -45,6 +45,9 @@ export class AuthService {
   }
 
   setCurrentUser(user: UserResponse) {
+    user.roles = [];
+    const roles = this.getDecodedToken(user.token).role;
+    Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
     this.currentUserSource.next(user);
     this.isAuthenticated = true;
     localStorage.setItem('user', JSON.stringify(user));
@@ -72,6 +75,14 @@ export class AuthService {
       return user.token;
     } else {
       return '';
+    }
+  }
+
+  getDecodedToken(token : string | undefined): any {
+    if(token) {
+      return JSON.parse(atob(token.split('.')[1]) )// to get the payload
+    }else{
+      return null;
     }
   }
 }

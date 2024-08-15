@@ -9,4 +9,5 @@ export class UserResponse {
   public photoUrl: string | undefined;
   public knowAs : string | undefined;
   public gender : string | undefined;
+  public roles : string[] | undefined;
 }

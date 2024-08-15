@@ -15,6 +15,11 @@ namespace API.Controllers
         protected IConnectionStringProvider _connectionStringProvider;
         protected IMapper _mapper;
 
+        public BaseApiController( IConnectionStringProvider connectionStringProvider)
+        {
+            _connectionStringProvider = connectionStringProvider;
+        }
+
         public BaseApiController(DataContext context, IConnectionStringProvider connectionStringProvider)
         {
             _context = context;

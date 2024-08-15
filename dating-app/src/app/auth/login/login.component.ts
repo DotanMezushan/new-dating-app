@@ -54,6 +54,18 @@ export class LoginComponent {
     });
   }
 
+  loginAdmin(){
+    this.isLoading = true;
+    const login: LoginModel = {
+      UserName: "admin",
+      Password: "Pa$$w0rd"
+    };
+    this.authService.login(login).subscribe(() => {
+      this.isLoading = false;
+      this.authService.navigateToDev();
+    });
+  }
+
   loginHughes(){
     this.isLoading = true;
     const login: LoginModel = {

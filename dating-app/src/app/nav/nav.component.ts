@@ -8,6 +8,7 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { UserResponse } from '../models/login.model';
 import { filter, Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { HasRoleDirective } from '../directives/has-role.directive';
 
 @Component({
   selector: 'app-nav',
@@ -19,17 +20,20 @@ import { AuthService } from '../services/auth.service';
     MatButtonModule,
     MatIconModule,
     FlexLayoutModule,
-    RouterModule
+    RouterModule,
+    HasRoleDirective
   ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss',
 })
 export class NavComponent implements OnInit , OnDestroy {
-  currentUser: UserResponse | undefined | null = undefined;
+  currentUser !: UserResponse | undefined ;
   activeRoute: string = '';
   private authStatusSubscription: Subscription | undefined;
   private routerSubscription: Subscription | undefined;
-  
+  allowedRoles : string[] = ['Admin', 'Moderator'];
+
+
   constructor (
     private router : Router,
     private authService: AuthService,
@@ -38,6 +42,9 @@ export class NavComponent implements OnInit , OnDestroy {
   }
 
   ngOnInit(): void {
+    this.authService.currentUser$.subscribe(user => {
+      this.currentUser = user as UserResponse;
+    });
     this.routerSubscription = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
@@ -70,7 +77,7 @@ export class NavComponent implements OnInit , OnDestroy {
 
   isAuthenticated(): boolean {
     let tokenString: string = this.authService.getToken();
-    if(tokenString?.length>10){
+    if(tokenString?.length){
       return true;
     }else{
       return false;
@@ -84,6 +91,10 @@ export class NavComponent implements OnInit , OnDestroy {
     }else{
       return "";
     }
+  }
+
+  isAdmin(): boolean{
+    return true;
   }
 
 }

@@ -10,6 +10,8 @@ import { NgModule } from '@angular/core';
 import { AuthGuard } from './guard/auth.guard';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { preventUnsavedChangesGuard } from './guard/prevent-unsaved-changes.guard';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { adminGuard } from './guard/admin.guard';
 
 export const routes: Routes = [
     {
@@ -27,24 +29,27 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {
-                path: 'members',component : MemberListComponent , canActivate: [AuthGuard]
+                path: 'members',component : MemberListComponent 
             },
             {
-                path: 'members/:username',component : MemberDetailComponent , canActivate: [AuthGuard]
+                path: 'members/:username',component : MemberDetailComponent 
             },
             {
-                path: 'members/:username/messages', component: MemberDetailComponent, canActivate: [AuthGuard]
+                path: 'members/:username/messages', component: MemberDetailComponent
             },
             {
                 path: 'member/edit',component : MemberEditComponent , 
                 canActivate: [AuthGuard],canDeactivate: [preventUnsavedChangesGuard]
             },
             {
-                path: 'list',component : ListsComponent , canActivate: [AuthGuard]
+                path: 'list',component : ListsComponent ,
             },
             {
-                path: 'messages',component : MessagesComponent , canActivate: [AuthGuard]
+                path: 'messages',component : MessagesComponent , 
             },
+            {
+                path: 'admin',component : AdminPanelComponent , canActivate: [adminGuard] 
+            }
         ]
 
     },

@@ -1,0 +1,12 @@
+<div class="dialog-header"> Edit Roles for {{ data.userName }}</div>
+<div class="dialog-content">
+  <mat-checkbox *ngFor="let role of roleKeys" 
+                [disabled]="isDisabled(role)" 
+                [(ngModel)]="roles[role]">
+    {{ role }}
+  </mat-checkbox>
+</div>
+<div class="dialog-actions">
+  <button mat-button color="warn" (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onSubmit()">Submit</button>
+</div>
