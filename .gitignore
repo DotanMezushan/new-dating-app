@@ -485,3 +485,7 @@ $RECYCLE.BIN/
 
 appsettings.json
 appsettings.Development.json
+environment.ts
+environment.prod.ts
+dating-app/src/environments/environment.ts
+dating-app/src/environments/environment.prod.ts
