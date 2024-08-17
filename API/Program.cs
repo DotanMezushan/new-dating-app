@@ -8,6 +8,7 @@ using API.Data;
 using API.Utils;
 using API.Entities;
 using Microsoft.AspNetCore.Identity;
+using API.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,7 @@ builder.Services.AddScoped<ILikesRepository, LikesRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<LogUserActivity>();
 builder.Services.ConfigureJwtAuthentication(builder.Configuration);
+builder.Services.AddSignalR();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -58,13 +60,14 @@ using (var scope = app.Services.CreateScope())
 
 // Configure middleware and endpoints
 app.UseRouting();
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:4200"));
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
+    endpoints.MapHub<PresenceHub>("hubs/presence");
 });
 
 await app.RunAsync();

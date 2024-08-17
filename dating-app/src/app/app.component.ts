@@ -5,6 +5,9 @@ import { RouterOutlet } from '@angular/router';
 import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HasRoleDirective } from './directives/has-role.directive';
+import { UserResponse } from './models/login.model';
+import { AuthService } from './services/auth.service';
+import { PresenceService } from './services/presence.service';
 
 @Component({
   selector: 'app-root',
@@ -20,16 +23,23 @@ export class AppComponent implements OnInit {
   users: any;
 
   constructor(
-    private http: HttpClient  ) {}
+    private authService : AuthService,
+    private presenceService : PresenceService
+      ) {}
 
   ngOnInit(): void {
-    // this.http.get("http://localhost:5001/api/users").subscribe({
-    //   next: (users: any) => {
-    //     this.users = users;
-    //   },
-    //   error: (err) => {
-    //     console.error("Error fetching users:", err);
-    //   }
-    // });
+    this.setCurrentUser();
+  }
+  setCurrentUser() {
+    try{
+      const user: UserResponse = JSON.parse(localStorage.getItem("user") as string);
+      if(user){
+        this.authService.setCurrentUser(user);
+        this.presenceService.createHubConnection(user);
+      }
+    }catch(error){
+      console.log(error);
+      console.log("setCurrentUser, appComponent");
+    }
   }
 }

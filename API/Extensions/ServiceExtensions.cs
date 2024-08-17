@@ -49,6 +49,21 @@ namespace API.Extensions
                         ValidIssuer = issuer,
                         ValidAudience = audience
                     };
+
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"]; // default name access_token
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(path) && path.StartsWithSegments("/hubs"))
+                            {
+                                context.Token = accessToken;
+                            }
+
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
             services.AddAuthorization(options =>
@@ -71,6 +86,7 @@ namespace API.Extensions
                 options.AddPolicy("AllowFromPort4200", policy =>
                 {
                     policy.WithOrigins("http://localhost:4200")
+                          .AllowCredentials()
                           .AllowAnyMethod()
                           .AllowAnyHeader();
                 });

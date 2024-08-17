@@ -5,6 +5,7 @@ import { LoginModel, UserResponse } from '../models/login.model';
 import { Router } from '@angular/router';
 import { SnackbarService } from './snackbar.service';
 import { environment } from '../../environments/environment';
+import { PresenceService } from './presence.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private presenceService : PresenceService
   ) {}
 
   baseUrl = environment.apiUrl;
@@ -44,18 +46,23 @@ export class AuthService {
     );
   }
 
-  setCurrentUser(user: UserResponse) {
+  setCurrentUser(user: UserResponse): void {
+    if(user == null) {
+      return;
+    }
     user.roles = [];
     const roles = this.getDecodedToken(user.token).role;
     Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
     this.currentUserSource.next(user);
     this.isAuthenticated = true;
     localStorage.setItem('user', JSON.stringify(user));
+    this.presenceService.createHubConnection (user);
   }
 
   setLogOut() {
     this.currentUserSource.next(null);
     this.isAuthenticated = false;
+    this.presenceService.stopHubConnection();
     localStorage.removeItem('user');
     this.snackbarService.showSnackbar('You logged out', null, 3000);
     this.router.navigate(['/login']);
