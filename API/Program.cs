@@ -16,6 +16,7 @@ builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection(
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.ConfigureDbContext(builder.Configuration);
 builder.Services.AddSingleton<IConnectionStringProvider, ConnectionStringProvider>();
+builder.Services.AddSingleton<PresenceTracker>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 builder.Services.AddScoped<ITokenService,TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -68,6 +69,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapHub<PresenceHub>("hubs/presence");
+    endpoints.MapHub<MessageHub>("hubs/message");
 });
 
 await app.RunAsync();

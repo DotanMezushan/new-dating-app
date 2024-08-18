@@ -1,13 +1,18 @@
 <div class="profile-card" *ngIf="member">
-    <img class="profile-image" src="{{ member.photoUrl }}" alt="{{ member.knowAs }}">
-    <div class="profile-details">
-      <div class="profile-name">{{ member.knowAs }}, {{member.age}}</div>
-      <div class="profile-location">{{ member.city }}, {{ member.country }}</div>
-      <div class="profile-icons" *ngIf="withIcons">
-        <mat-icon [routerLink]="['/members/', member.userName]" >person</mat-icon>
-        <mat-icon (click)="addLike(member)" >favorite</mat-icon>
-        <mat-icon [routerLink]="['/members', member.userName, 'messages']">comment</mat-icon>
+  <img class="profile-image" src="{{ member.photoUrl }}" alt="{{ member.knowAs }}">
+  <div class="profile-details">
+    <div class="profile-name">{{ member.knowAs }}, {{ member.age }}</div>
+    <div class="profile-location">{{ member.city }}, {{ member.country }}</div>
+    <div class="profile-icons">
+      <mat-icon *ngIf="withIcons" [routerLink]="['/members/', member.userName]">person</mat-icon>
+      <mat-icon *ngIf="withIcons" (click)="addLike(member)">favorite</mat-icon>
+      <mat-icon *ngIf="withIcons" [routerLink]="['/members', member.userName, 'messages']">comment</mat-icon>
+      <div *ngIf="isOnline && withIcons" class="online-indicator-inline">
+        <mat-icon>circle</mat-icon>
       </div>
     </div>
+    <div *ngIf="isOnline && !withIcons" class="online-indicator-block">
+      <mat-icon>circle</mat-icon>
+    </div>
   </div>
-  
+</div>

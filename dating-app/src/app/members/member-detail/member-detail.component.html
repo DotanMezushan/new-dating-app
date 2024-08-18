@@ -15,6 +15,7 @@
         <p><strong>Country:</strong> {{ member.country }}</p>
         <p><strong>Created:</strong> {{ member.created | date }}</p>
         <p><strong>Last Active:</strong> {{ member.lastActive | amTimeAgo }}</p>
+        <p *ngIf="isOnline"><mat-icon>circle</mat-icon></p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-icon-button (click)="previousPhoto()">
@@ -34,7 +35,10 @@
   </div>
 
   <div class="member-details-tab">
-    <mat-tab-group [(selectedIndex)]="selectedTabIndex" animationDuration="1000ms">
+    <mat-tab-group
+     [(selectedIndex)]="selectedTabIndex"
+     (selectedTabChange)="onTabActive($event)" 
+      animationDuration="1000ms">
       <mat-tab label="About {{member.knowAs}}" >
         <h4>Description</h4>
         <p>{{member.introduction}}</p>
@@ -49,7 +53,7 @@
         <app-photo-gallery [imagesUrl]="imagesUrl"></app-photo-gallery>
       </mat-tab>
       <mat-tab label="Messages">
-        <app-member-messages [userName]="member.userName"></app-member-messages>
+        <app-member-messages [otherUserName]="member.userName" ></app-member-messages>
       </mat-tab>
     </mat-tab-group>
   </div>

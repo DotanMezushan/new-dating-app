@@ -65,26 +65,26 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto login)
         {
-            var user = await _userManager.Users
-                .Include(p => p.Photos)
-                .SingleOrDefaultAsync(x => x.UserName == login.UserName.ToLower());
-            if (user == null)
-                return Unauthorized("invalid user Name");
-            else
-            {
-                var result = await _signInManager.CheckPasswordSignInAsync(user, login.Password, false);
-                if (!result.Succeeded) { return Unauthorized(); }
-                return Ok(
-                   new UserDto()
-                   {
-                       UserName = user.UserName,
-                       Token = await _tokenSrevice.CreateToken(user),
-                       PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain)?.Url,
-                       KnowAs = user.KnowAs ,
-                       Gender = user.Gender,
-                   }
-               );
-            }
+                var user = await _userManager.Users
+                        .Include(p => p.Photos)
+                        .SingleOrDefaultAsync(x => x.UserName == login.UserName.ToLower());
+                if (user == null)
+                    return Unauthorized("invalid user Name");
+                else
+                {
+                    var result = await _signInManager.CheckPasswordSignInAsync(user, login.Password, false);
+                    if (!result.Succeeded) { return Unauthorized(); }
+                    return Ok(
+                       new UserDto()
+                       {
+                           UserName = user.UserName,
+                           Token = await _tokenSrevice.CreateToken(user),
+                           PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain)?.Url,
+                           KnowAs = user.KnowAs ,
+                           Gender = user.Gender,
+                       }
+                   );
+                }
 
         }
 

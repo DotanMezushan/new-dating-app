@@ -1,18 +1,18 @@
 <div class="messages-container">
-    <mat-card *ngFor="let message of messages">
+    <mat-card *ngFor="let message of messageService.messageThread$| async">
       <mat-card-header>
-        <div mat-card-avatar class="sender-photo" [ngStyle]="{'background-image': 'url(' + message.senderPhotoUrl + ')'}"></div>
-        <mat-card-title>{{ message.senderUserName }}</mat-card-title>
+        <div mat-card-avatar class="sender-photo" [ngStyle]="{'background-image': 'url(' + message.recipientPhotoUrl + ')'}"></div>
+        <mat-card-title>{{ message.recipientUserName }}</mat-card-title>
         <mat-card-subtitle>{{ message.messageSent | date:'short' }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <p>{{ message.content }}</p>
         <p>{{message.messageSent | amTimeAgo }}</p>
-        <p *ngIf="!message.dateRead && message.senderUserName !== userName">
+        <p *ngIf="!message.dateRead && message.senderUserName !== otherUserName">
            (unread) 
         </p>
 
-        <p *ngIf="message.dateRead && message.senderUserName !== userName">
+        <p *ngIf="message.dateRead && message.senderUserName !== otherUserName">
             (read) {{message.dateRead| amTimeAgo }}
          </p>
       </mat-card-content>
