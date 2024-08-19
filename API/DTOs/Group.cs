@@ -14,6 +14,6 @@ namespace API.DTOs
         }
         [Key]// to make it pk in db and it make it index
         public string Name { get; set; }
-        public ICollection<Connection> Connection { get; set; } = new List<Connection>();
+        public ICollection<Connection> Connections { get; set; } = new List<Connection>();
     }
 }

@@ -3,7 +3,7 @@ import { environment } from '../../environments/environment';
 import {HubConnection, HubConnectionBuilder} from '@microsoft/signalr'
 import { SnackbarService } from './snackbar.service';
 import { UserResponse } from '../models/login.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 
@@ -33,11 +33,17 @@ export class PresenceService {
     .catch(error => console.log(error));
 
     this.hubConnection.on("UserIsOnline", userName => {// same name as server!!!
-      this.snackbarService.showSnackbar(userName + "  has connected", null,3000);
+      //this.snackbarService.showSnackbar(userName + "  has connected", null,3000);
+      this.onlineUsers$.pipe(take(1)).subscribe(userNames => {
+        this.onlineUsersSource.next([...userNames, userName])
+      });
     });
 
-    this.hubConnection.on("UserIsOffline", userName => {// same name as server!!!
-      this.snackbarService.showSnackbar(userName + "  has disconnected", null,3000);
+    this.hubConnection.on("UserIsOffline", userName => {
+      //this.snackbarService.showSnackbar(userName + "  has disconnected", null,3000);
+      this.onlineUsers$.pipe(take(1)).subscribe(userNames => {
+        this.onlineUsersSource.next([...userNames.filter(user => user !== userName)])
+      });
     });
 
     this.hubConnection.on("GetOnlineUsers", ((userNames: string[]) => {

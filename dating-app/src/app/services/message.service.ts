@@ -8,6 +8,7 @@ import { Message } from '../models/message.model';
 import { BehaviorSubject, catchError, Observable, take, throwError } from 'rxjs';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { UserResponse } from '../models/login.model';
+import { Group } from '../models/group.model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,19 @@ export class MessageService {
       ).subscribe((messges: Message[])=>{
         this.messageThreadSource.next([...messges, message]);// this to new message to Message[]
       })
+    });
+
+    this.hubConnection.on("UpdatedGroup", (group : Group) => {
+      if(group.connections.some(x => x.userName === otherUserName)){
+        this.messageThread$.pipe((take(1))).subscribe((messges: Message[])=>{
+          messges.forEach(message => {
+            if(!message.dateRead){
+              message.dateRead = new Date(Date.now());
+            }
+          });
+          this.messageThreadSource.next([...messges]);
+        })
+      }
     });
 
   }

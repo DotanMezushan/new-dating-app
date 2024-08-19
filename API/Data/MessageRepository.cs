@@ -12,38 +12,46 @@ namespace API.Data
 {
     public class MessageRepository : IMessageRepository
     {
-        private readonly DataContext context;
-        private readonly IMapper mapper;
+        private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
         public MessageRepository(DataContext context, IMapper mapper)
         {
-            this.context = context;
-            this.mapper = mapper;
+            this._context = context;
+            this._mapper = mapper;
         }
 
         public void AddGroup(Group group)
         {
-            context.Groups.Add(group);
+            _context.Groups.Add(group);
         }
 
         public async void AddMessage(Message message)
         {
-            await context.Messages.AddAsync(message);
+            await _context.Messages.AddAsync(message);
         }
 
         public void DeleteMessage(Message message)
         {
-            context.Messages.Remove(message);
+            _context.Messages.Remove(message);
         }
 
         public async Task<Connection> GetConnection(string connectionId)
         {
-            return await context.Connection.FindAsync(connectionId);
+            return await _context.Connection.FindAsync(connectionId);
+        }
+
+        public async Task<Group> GetGroupForConnection(string connectionId)
+        {
+            return await _context.Groups
+                .Include(c => c.Connections)
+                .Where(c => c.Connections.Any(con => con.ConnectionId == connectionId))
+                .FirstOrDefaultAsync();
         }
 
         public async Task<Message> GetMessage(int id)
         {
-            return await context.Messages
+            return await _context.Messages
                 .Include(u => u.Sender)
                 .Include(u => u.Recipient)
                 .SingleOrDefaultAsync(x => x.Id == id);
@@ -52,7 +60,7 @@ namespace API.Data
 
         public async Task<PagedList<MessageDto>> GetMessageForUser(MessageParams messageParams )
         {
-                var query = context.Messages
+                var query = _context.Messages
                         .OrderByDescending(m => m.MessageSent)
                         .AsQueryable();
 
@@ -64,7 +72,7 @@ namespace API.Data
                     _ => query.Where(u => u.Recipient.UserName == messageParams.UserName && u.RecipientDeleted == false && u.DateRead == null)
                 };
 
-                var messages = query.ProjectTo<MessageDto>(mapper.ConfigurationProvider);
+                var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
 
                 return await PagedList<MessageDto>.CreateAsync(messages, messageParams.PageNumber, messageParams.PageSize);
 
@@ -72,14 +80,14 @@ namespace API.Data
 
         public async Task<Group> GetMessageGroup(string groupName)
         {
-            return await context.Groups
-                .Include(x => x.Connection)
+            return await _context.Groups
+                .Include(x => x.Connections)
                 .FirstOrDefaultAsync(x => x.Name == groupName);
         }
 
         public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserName, string recipientUserName)
         {
-            var messages = await context.Messages
+            var messages = await _context.Messages
                 .Include(u => u.Sender).ThenInclude(p => p.Photos)
                 .Include(u => u.Recipient).ThenInclude(p => p.Photos)
                 .Where(m =>
@@ -104,22 +112,22 @@ namespace API.Data
                     message.DateRead = DateTime.UtcNow;
                 }
 
-                await context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
 
-            var m = mapper.Map<IEnumerable<MessageDto>>(messages);
+            var m = _mapper.Map<IEnumerable<MessageDto>>(messages);
 
             return m;
         }
 
         public void RemoveConnection(Connection connection)
         {
-            context.Connection.Remove(connection);
+            _context.Connection.Remove(connection);
         }
 
         public async Task<bool> SaveAllAsync()
         {
-           return await context.SaveChangesAsync() > 0;
+           return await _context.SaveChangesAsync() > 0;
         }
     }
 }
