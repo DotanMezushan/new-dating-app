@@ -12,10 +12,15 @@ namespace API.Services
     {
         private readonly SymmetricSecurityKey _symmetricSecurityKey;
         private readonly UserManager<AppUser> _userManager;
+        private readonly string _audience;
+        private readonly string _issuer;
+
 
         public TokenService(IConfiguration configuration, UserManager<AppUser> userManager)
         {
             _symmetricSecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["jwt:TokenKey"]));
+            _audience = configuration["jwt:Audience"];
+            _issuer = configuration["jwt:Issuer"];
             _userManager = userManager;
         }
 
@@ -40,8 +45,8 @@ namespace API.Services
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = creds,
-                Issuer = "jhsduyefduoyfduo", // Match the issuer
-                Audience = "fhjkdhfkhfdjkhfdkj" // Match the audience
+                Issuer = _issuer,
+                Audience = _audience
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
