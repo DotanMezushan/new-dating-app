@@ -65,11 +65,15 @@ app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrig
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseDefaultFiles();//fot index.html
+app.UseStaticFiles();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapHub<PresenceHub>("hubs/presence");
     endpoints.MapHub<MessageHub>("hubs/message");
+    endpoints.MapFallbackToController("Index", "Fallback");
 });
 
 await app.RunAsync();
