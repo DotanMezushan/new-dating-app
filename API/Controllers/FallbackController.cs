@@ -16,7 +16,7 @@ namespace API.Controllers
 
             if (!System.IO.File.Exists(filePath))
             {
-                return NotFound($"File not found: {filePath}");
+                return NotFound($"File not found: {filePath} {Directory.GetCurrentDirectory()}");
             }
 
             return PhysicalFile(filePath, "text/html");
