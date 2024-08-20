@@ -16,9 +16,7 @@ namespace API.Controllers
 
             if (!System.IO.File.Exists(filePath))
             {
-                // Handle the file not found scenario, e.g., return a 404 page
-                throw new Exception(Directory.GetCurrentDirectory().ToString() + "File place issue ");
-                //return NotFound("");
+                return NotFound($"File not found: {filePath}");
             }
 
             return PhysicalFile(filePath, "text/html");
