@@ -38,23 +38,31 @@ namespace API.Data
 
         public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
-            var query = context.Users.AsQueryable();
-            query = query.Where(u => u.UserName != userParams.CurrentUserName);
-            query = query.Where(u => u.Gender == userParams.Gender);
-
-            var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1).ToUniversalTime();
-            var maxDob = DateTime.Today.AddYears(-userParams.MinAge ).ToUniversalTime();
-            query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
-
-            query = userParams.OrderBy switch
+            try
             {
-                "created" => query.OrderByDescending(u => u.Created.ToUniversalTime()),
-                _ => query.OrderByDescending(u => u.LastActive.ToUniversalTime())
-            };
+                var query = context.Users.AsQueryable();
+                query = query.Where(u => u.UserName != userParams.CurrentUserName);
+                query = query.Where(u => u.Gender == userParams.Gender);
 
-            return await PagedList<MemberDto>.CreateAsync(
-                query.ProjectTo<MemberDto>(this.mapper.ConfigurationProvider)
-                , userParams.PageNumber, userParams.PageSize);
+                var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1).ToUniversalTime();
+                var maxDob = DateTime.Today.AddYears(-userParams.MinAge).ToUniversalTime();
+                query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
+
+                query = userParams.OrderBy switch
+                {
+                    "created" => query.OrderByDescending(u => u.Created.ToUniversalTime()),
+                    _ => query.OrderByDescending(u => u.LastActive.ToUniversalTime())
+                };
+
+                return await PagedList<MemberDto>.CreateAsync(
+                    query.ProjectTo<MemberDto>(this.mapper.ConfigurationProvider)
+                    , userParams.PageNumber, userParams.PageSize);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)
