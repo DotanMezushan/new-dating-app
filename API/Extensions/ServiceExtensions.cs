@@ -1,5 +1,6 @@
 ﻿using API.Data;
 using API.Entities;
+using API.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -148,5 +149,29 @@ namespace API.Extensions
 
             return services;
         }
+
+        public static IServiceCollection ConfigurCloudinarySettings(this IServiceCollection services, IConfiguration configuration)
+        {
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+            if (env == "Development")
+            {
+                services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
+            }
+            else
+            {
+                var cloudinarySettings = new CloudinarySettings
+                {
+                    ApiKey = configuration["CloudinarySettings:ApiKey"],
+                    ApiSecret = configuration["CloudinarySettings:ApiSecret"],
+                    CloudName = configuration["CloudinarySettings:CloudName"]
+                };
+                services.AddSingleton(cloudinarySettings);
+            }
+
+            return services;
+        }
+
+
     }
 }

@@ -12,7 +12,7 @@ using API.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.ConfigurCloudinarySettings(builder.Configuration);
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.ConfigureDbContext(builder.Configuration);
 builder.Services.AddSingleton<IConnectionStringProvider, ConnectionStringProvider>();
