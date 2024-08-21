@@ -2,9 +2,6 @@
 using CloudinaryDotNet.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Collections;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.Json;
 
 namespace API.Data
@@ -46,6 +43,10 @@ namespace API.Data
                 }
 
                 admin.UserName = "admin".ToLower();
+                admin.KnowAs = "admin".ToLower();
+                admin.DateOfBirth = admin.DateOfBirth.ToUniversalTime();
+                admin.Created = admin.DateOfBirth.ToUniversalTime();
+                admin.LastActive = admin.DateOfBirth.ToUniversalTime();
                 await userManager.CreateAsync(admin, "Pa$$w0rd");
                 await userManager.AddToRolesAsync(admin, new[] { "Admin", "Moderator" });
 

@@ -38,7 +38,7 @@ namespace API.Migrations
 
                     b.HasIndex("GroupName");
 
-                    b.ToTable("Connection");
+                    b.ToTable("Connection", (string)null);
                 });
 
             modelBuilder.Entity("API.DTOs.Group", b =>
@@ -48,7 +48,7 @@ namespace API.Migrations
 
                     b.HasKey("Name");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("API.Entities.AppRole", b =>
@@ -240,7 +240,7 @@ namespace API.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("API.Entities.Photo", b =>
@@ -268,7 +268,7 @@ namespace API.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Photos", (string)null);
                 });
 
             modelBuilder.Entity("API.Entities.UserLike", b =>
@@ -283,7 +283,7 @@ namespace API.Migrations
 
                     b.HasIndex("LikedUserId");
 
-                    b.ToTable("Likes");
+                    b.ToTable("Likes", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
