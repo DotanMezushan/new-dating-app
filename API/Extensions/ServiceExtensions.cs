@@ -1,12 +1,15 @@
 ﻿using API.Data;
 using API.Entities;
 using API.Utils;
+using Azure.Core.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 using System.Text;
+using System.Text.Json;
 
 namespace API.Extensions
 {
@@ -166,11 +169,13 @@ namespace API.Extensions
                     ApiSecret = configuration["CloudinarySettings:ApiSecret"],
                     CloudName = configuration["CloudinarySettings:CloudName"]
                 };
+
                 services.AddSingleton(cloudinarySettings);
             }
 
             return services;
         }
+
 
 
     }
