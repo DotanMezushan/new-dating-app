@@ -19,8 +19,8 @@ namespace API.Services
         public TokenService(IConfiguration configuration, UserManager<AppUser> userManager)
         {
             _symmetricSecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["jwt:TokenKey"]));
-            _audience = configuration["jwt:Audience"];
-            _issuer = configuration["jwt:Issuer"];
+            _audience = configuration["jwt:Audience"].ToString();
+            _issuer = configuration["jwt:Issuer"].ToString();
             _userManager = userManager;
         }
 
@@ -43,7 +43,7 @@ namespace API.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(30),
+                Expires = DateTime.Now.AddMinutes(30),
                 SigningCredentials = creds,
                 Issuer = _issuer,
                 Audience = _audience
