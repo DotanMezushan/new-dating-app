@@ -2,6 +2,7 @@
 using API.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -26,6 +27,7 @@ namespace API.Services
 
         public async Task<string> CreateToken(AppUser user)
         {
+            Debug.WriteLine("CreateToken");
 
             var claims = new List<Claim>
             {
@@ -53,6 +55,8 @@ namespace API.Services
             try
             {
                 var token = tokenHandler.CreateToken(tokenDescriptor);
+                Debug.WriteLine(tokenHandler.WriteToken(token));
+
                 return tokenHandler.WriteToken(token);
             }
             catch (Exception ex)
