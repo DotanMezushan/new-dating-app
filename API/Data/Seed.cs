@@ -49,8 +49,6 @@ namespace API.Data
                 admin.LastActive = admin.DateOfBirth.ToUniversalTime();
                 await userManager.CreateAsync(admin, "Pa$$w0rd");
                 await userManager.AddToRolesAsync(admin, new[] { "Admin", "Moderator" });
-
-
             }
         }
     }
