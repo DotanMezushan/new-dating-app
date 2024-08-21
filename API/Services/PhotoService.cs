@@ -17,6 +17,12 @@ namespace API.Services
             {
                 var acc = new Account(config.Value.CloudName, config.Value.ApiKey, config.Value.ApiSecret);
                 cloudinary = new Cloudinary(acc);
+                var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                if (env != "Development")
+                {
+                    throw new Exception("settings == null");
+                }
+
             }
             else
             {

@@ -1,35 +1,37 @@
-﻿using API.Entities;
-using API.Utils;
-using Microsoft.Extensions.Configuration;
+﻿using API.Utils;
 
-namespace API.Services
+public class CloudinaryService
 {
-    public class CloudinaryService
+    private readonly IConfiguration _configuration;
+
+    public CloudinaryService(IConfiguration configuration)
     {
-        private readonly IConfiguration _configuration;
+        _configuration = configuration;
+    }
 
-        public CloudinaryService(IConfiguration configuration)
+    public CloudinarySettings GetCloudinarySettings()
+    {
+        var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+        if (env == "Development")
         {
-            _configuration = configuration;
+            return null;
         }
-
-        public CloudinarySettings GetCloudinarySettings()
+        else
         {
-            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var cloudinarySettings = new CloudinarySettings
+            {
+                ApiKey = _configuration["CloudinarySettings:ApiKey"],
+                ApiSecret = _configuration["CloudinarySettings:ApiSecret"],
+                CloudName = _configuration["CloudinarySettings:CloudName"]
+            };
 
-            if (env == "Development")
+            if (string.IsNullOrEmpty(cloudinarySettings.CloudName))
             {
-                return null;
+                throw new ArgumentException("Cloud name must be specified in Account!");
             }
-            else
-            {
-                return new CloudinarySettings
-                {
-                    ApiKey = _configuration["CloudinarySettings:ApiKey"],
-                    ApiSecret = _configuration["CloudinarySettings:ApiSecret"],
-                    CloudName = _configuration["CloudinarySettings:CloudName"]
-                };
-            }
+
+            return cloudinarySettings;
         }
     }
 }
