@@ -4,9 +4,7 @@ using API.Interfaces;
 using API.Utils;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace API.Data
 {

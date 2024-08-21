@@ -11,58 +11,58 @@ namespace API.Extensions
 {
     public static class ServiceExtensions
     {
-        //public static IServiceCollection ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
-        //{
-        //    var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-        //    string connStr;
-
-        //    if (env == "Development")
-        //    {
-        //        // Use connection string from configuration for development
-        //        connStr = configuration.GetConnectionString("DefaultConnection");
-        //    }
-        //    else
-        //    {
-        //        // Use connection string provided by Heroku for production
-        //        var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-
-        //        if (!string.IsNullOrEmpty(connUrl))
-        //        {
-        //            // Parse connection URL to connection string for Npgsql
-        //            connUrl = connUrl.Replace("postgres://", string.Empty);
-        //            var pgUserPass = connUrl.Split('@')[0];
-        //            var pgHostPortDb = connUrl.Split('@')[1];
-        //            var pgHostPort = pgHostPortDb.Split('/')[0];
-        //            var pgDb = pgHostPortDb.Split('/')[1];
-        //            var pgUser = pgUserPass.Split(':')[0];
-        //            var pgPass = pgUserPass.Split(':')[1];
-        //            var pgHost = pgHostPort.Split(':')[0];
-        //            var pgPort = pgHostPort.Split(':')[1];
-
-        //            connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
-
-        //        }
-        //        else
-        //        {
-        //            throw new InvalidOperationException("DATABASE_URL environment variable is not set.");
-        //        }
-        //    }
-
-        //    services.AddDbContext<DataContext>(options =>
-        //        options.UseNpgsql(connStr));
-        //    return services;
-        //}
-        #region localhost only for sql server 
-        //"DefaultConnection": "Server=LAPTOP-2CL02LQT;Database=DATING_TEST;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;"
         public static IServiceCollection ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+            string connStr;
+
+            if (env == "Development")
+            {
+                // Use connection string from configuration for development
+                connStr = configuration.GetConnectionString("DefaultConnection");
+            }
+            else
+            {
+                // Use connection string provided by Heroku for production
+                var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+                if (!string.IsNullOrEmpty(connUrl))
+                {
+                    // Parse connection URL to connection string for Npgsql
+                    connUrl = connUrl.Replace("postgres://", string.Empty);
+                    var pgUserPass = connUrl.Split('@')[0];
+                    var pgHostPortDb = connUrl.Split('@')[1];
+                    var pgHostPort = pgHostPortDb.Split('/')[0];
+                    var pgDb = pgHostPortDb.Split('/')[1];
+                    var pgUser = pgUserPass.Split(':')[0];
+                    var pgPass = pgUserPass.Split(':')[1];
+                    var pgHost = pgHostPort.Split(':')[0];
+                    var pgPort = pgHostPort.Split(':')[1];
+
+                    connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
+
+                }
+                else
+                {
+                    throw new InvalidOperationException("DATABASE_URL environment variable is not set.");
+                }
+            }
+
             services.AddDbContext<DataContext>(options =>
-                 //options.UseSqlServer(connectionString));
-                 options.UseNpgsql(connectionString));
+                options.UseNpgsql(connStr));
             return services;
         }
+        #region localhost only for sql server 
+
+        //public static IServiceCollection ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
+        //{
+        //    var connectionString = configuration.GetConnectionString("DefaultConnection");
+        //    services.AddDbContext<DataContext>(options =>
+        //         //options.UseSqlServer(connectionString));
+        //         options.UseNpgsql(connectionString));
+        //    return services;
+        //}
         #endregion
 
         public static IServiceCollection ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
