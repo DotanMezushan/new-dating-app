@@ -141,6 +141,14 @@ namespace API.Extensions
                           .AllowAnyMethod()
                           .AllowAnyHeader();
                 });
+
+                options.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.WithOrigins("https://datingonlineapp-d19b6b3b1c97.herokuapp.com")
+                          .AllowCredentials()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
             });
 
             return services;

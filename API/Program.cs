@@ -61,7 +61,7 @@ using (var scope = app.Services.CreateScope())
 
 // Configure middleware and endpoints
 app.UseRouting();
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:4200"));
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:4200", "https://datingonlineapp-d19b6b3b1c97.herokuapp.com"));
 app.UseAuthentication();
 app.UseAuthorization();
 
