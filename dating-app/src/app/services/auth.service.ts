@@ -29,6 +29,8 @@ export class AuthService {
       .post<UserResponse>(`${this.baseUrl}Account/login`, model)
       .pipe(
         map((response: UserResponse) => {
+          console.log(response);
+
           if (response && response.token) {
             this.setCurrentUser(response);
           }
