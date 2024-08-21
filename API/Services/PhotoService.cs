@@ -10,9 +10,13 @@ namespace API.Services
     {
         private readonly Cloudinary cloudinary;
 
-        public PhotoService(IOptions<CloudinarySettings> config)
+        public PhotoService(IOptions<CloudinarySettings> config , CloudinarySettings cloudinarySettings)
         {
-            var cloudinarySettings = config.Value;
+            if(cloudinarySettings == null)
+            {
+                cloudinarySettings = config.Value;
+            }
+            
             if (string.IsNullOrWhiteSpace(cloudinarySettings.ApiKey) ||
                 string.IsNullOrWhiteSpace(cloudinarySettings.ApiSecret) ||
                 string.IsNullOrWhiteSpace(cloudinarySettings.CloudName))
