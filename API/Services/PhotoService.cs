@@ -12,6 +12,13 @@ namespace API.Services
 
         public PhotoService(IOptions<CloudinarySettings> config)
         {
+            var cloudinarySettings = config.Value;
+            if (string.IsNullOrWhiteSpace(cloudinarySettings.ApiKey) ||
+                string.IsNullOrWhiteSpace(cloudinarySettings.ApiSecret) ||
+                string.IsNullOrWhiteSpace(cloudinarySettings.CloudName))
+            {
+                throw new ArgumentException("Cloudinary settings are not properly configured.");
+            }
             var acc = new Account(config.Value.CloudName, config.Value.ApiKey, config.Value.ApiSecret);
             cloudinary = new Cloudinary(acc);
             cloudinary.Api.Secure = true;
