@@ -10,21 +10,21 @@ namespace API.Services
     {
         private readonly Cloudinary cloudinary;
 
-        public PhotoService(IOptions<CloudinarySettings> config , CloudinarySettings cloudinarySettings)
+        public PhotoService(IOptions<CloudinarySettings> config , CloudinaryService cloudinaryService)
         {
-            if(cloudinarySettings == null)
+            var settings = cloudinaryService.GetCloudinarySettings();
+            if (settings == null) 
             {
-                cloudinarySettings = config.Value;
+                var acc = new Account(config.Value.CloudName, config.Value.ApiKey, config.Value.ApiSecret);
+                cloudinary = new Cloudinary(acc);
             }
-            
-            if (string.IsNullOrWhiteSpace(cloudinarySettings.ApiKey) ||
-                string.IsNullOrWhiteSpace(cloudinarySettings.ApiSecret) ||
-                string.IsNullOrWhiteSpace(cloudinarySettings.CloudName))
+            else
             {
-                throw new ArgumentException("Cloudinary settings are not properly configured.");
+                var acc = new Account(settings.CloudName, settings.ApiKey, settings.ApiSecret);
+                cloudinary = new Cloudinary(acc);
             }
-            var acc = new Account(config.Value.CloudName, config.Value.ApiKey, config.Value.ApiSecret);
-            cloudinary = new Cloudinary(acc);
+
+
             cloudinary.Api.Secure = true;
         }
 
