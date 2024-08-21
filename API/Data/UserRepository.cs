@@ -48,8 +48,8 @@ namespace API.Data
 
             query = userParams.OrderBy switch
             {
-                "created" => query.OrderByDescending(u => u.Created),
-                _ => query.OrderByDescending(u => u.LastActive)
+                "created" => query.OrderByDescending(u => u.Created.ToUniversalTime()),
+                _ => query.OrderByDescending(u => u.LastActive.ToUniversalTime())
             };
 
             return await PagedList<MemberDto>.CreateAsync(
