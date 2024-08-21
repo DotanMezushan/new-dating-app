@@ -165,9 +165,9 @@ namespace API.Extensions
             {
                 var cloudinarySettings = new CloudinarySettings
                 {
-                    ApiKey = configuration["CloudinarySettings:ApiKey"],
-                    ApiSecret = configuration["CloudinarySettings:ApiSecret"],
-                    CloudName = configuration["CloudinarySettings:CloudName"]
+                    ApiKey = configuration["CloudinariySettings:ApiKey"],
+                    ApiSecret = configuration["CloudinariySettings:ApiSecret"],
+                    CloudName = configuration["CloudinariySettings:CloudName"]
                 };
 
                 services.AddSingleton(cloudinarySettings);

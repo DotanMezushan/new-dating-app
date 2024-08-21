@@ -21,9 +21,9 @@ public class CloudinaryService
         {
             var cloudinarySettings = new CloudinarySettings
             {
-                ApiKey = _configuration["CloudinarySettings:ApiKey"],
-                ApiSecret = _configuration["CloudinarySettings:ApiSecret"],
-                CloudName = _configuration["CloudinarySettings:CloudName"]
+                ApiKey = _configuration["CloudinariySettings:ApiKey"],
+                ApiSecret = _configuration["CloudinariySettings:ApiSecret"],
+                CloudName = _configuration["CloudinariySettings:CloudName"]
             };
 
             if (string.IsNullOrEmpty(cloudinarySettings.CloudName))
