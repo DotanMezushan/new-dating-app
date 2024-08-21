@@ -85,7 +85,7 @@ namespace API.SignalR
 
                     if (group.Connections.Any(x => x.UserName == recipient.UserName))
                     {
-                        message.DateRead = DateTime.UtcNow;
+                        message.DateRead = DateTime.Now;
                     }
                     else
                     {
@@ -149,11 +149,11 @@ namespace API.SignalR
         //    var recipientConnections = await _tracker.GetConnectionsForUser(recipient.UserName);
         //    if (recipientConnections != null && recipientConnections.Any())
         //    {
-        //        message.DateRead = DateTime.UtcNow;
+        //        message.DateRead = DateTime.Now;
         //    }
         //    else if (group.Connection.Any(x => x.UserName == recipient.UserName))
         //    {
-        //        message.DateRead = DateTime.UtcNow;
+        //        message.DateRead = DateTime.Now;
         //    }
         //    else
         //    {
