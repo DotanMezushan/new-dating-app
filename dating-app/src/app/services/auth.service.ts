@@ -47,6 +47,9 @@ export class AuthService {
   }
 
   setCurrentUser(user: UserResponse): void {
+    console.log(user);
+    console.log(user.token);
+
     if(user == null) {
       return;
     }
