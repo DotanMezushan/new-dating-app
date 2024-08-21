@@ -50,7 +50,7 @@ export class LoginComponent {
     };
     this.authService.login(login).subscribe(() => {
       this.isLoading = false;
-      this.authService.navigateToDev();
+      //this.authService.navigateToDev();
     });
   }
 
@@ -62,7 +62,7 @@ export class LoginComponent {
     };
     this.authService.login(login).subscribe(() => {
       this.isLoading = false;
-      this.authService.navigateToDev();
+      //this.authService.navigateToDev();
     });
   }
 
@@ -74,7 +74,7 @@ export class LoginComponent {
     };
     this.authService.login(login).subscribe(() => {
       this.isLoading = false;
-      this.authService.navigateToDev();
+      //this.authService.navigateToDev();
     });
   }
 }

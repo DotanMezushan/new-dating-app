@@ -57,6 +57,7 @@ export class AuthService {
     this.isAuthenticated = true;
     localStorage.setItem('user', JSON.stringify(user));
     this.presenceService.createHubConnection (user);
+    this.navigateToHomePage();
   }
 
   setLogOut() {
