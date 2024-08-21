@@ -25,7 +25,7 @@ export class ListsComponent implements OnInit {
   membersLikeBy: Member[] = [];
   pageNumberILike: number = 1;
   pageSizeILike: number = 5;
-  paginationILike!: Pagination;
+  paginationILike: Pagination = new Pagination ();
   pageNumberLikeBy: number = 1;
   pageSizeLikeBy: number = 5;
   paginationLikeBy!: Pagination;

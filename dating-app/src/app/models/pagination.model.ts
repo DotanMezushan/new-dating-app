@@ -7,7 +7,7 @@ export class Pagination {
     constructor() {
          this.currentPage = 0;
          this.itemsPerPage = 5
-         this.totalItems = 0;
+         this.totalItems = 1;
          this.totalPages  = 0;
     }
 }

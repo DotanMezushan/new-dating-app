@@ -1,6 +1,6 @@
 <div class="member-list">
   <div class="filter-container">
-    <form [formGroup]="filterForm" (ngSubmit)="onFilter()">
+    <form *ngIf="filterForm" [formGroup]="filterForm" (ngSubmit)="onFilter()">
       <mat-form-field appearance="fill">
         <mat-label>Gender</mat-label>
         <mat-select formControlName="gender">
@@ -44,8 +44,8 @@
   </div>
 
   <div class="paginator-container">
-    <mat-paginator [length]="pagination.totalItems || 0"
-                   [pageSize]="pagination.itemsPerPage || 5"
+    <mat-paginator [length]="pagination.totalItems"
+                   [pageSize]="pagination.itemsPerPage"
                    [pageSizeOptions]="[5, 10, 20]"
                    [showFirstLastButtons]="true"
                    (page)="onPageChanged($event)">
