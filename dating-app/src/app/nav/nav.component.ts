@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,6 +27,7 @@ import { HasRoleDirective } from '../directives/has-role.directive';
   styleUrl: './nav.component.scss',
 })
 export class NavComponent implements OnInit , OnDestroy {
+  @Output() sidenavToggle = new EventEmitter<void>();
   currentUser !: UserResponse | undefined ;
   activeRoute: string = '';
   private authStatusSubscription: Subscription | undefined;
@@ -61,7 +62,7 @@ export class NavComponent implements OnInit , OnDestroy {
 
 
   onToggleSidenav(){
-    //this.sidenavToggle.emit();
+    this.sidenavToggle.emit();
   }
   onLogout(){
     this.authService.setLogOut();

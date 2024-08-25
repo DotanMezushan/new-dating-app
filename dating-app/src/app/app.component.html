@@ -1,2 +1,11 @@
-<app-nav></app-nav>
-<router-outlet></router-outlet> 
+<mat-sidenav-container>
+    <mat-sidenav #sidenav role="navigation">
+        <app-sidenav-list (sidenavToggle) = "sidenav.toggle()"></app-sidenav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-nav (sidenavToggle) = "sidenav.toggle()"></app-nav>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,40 @@
+<mat-nav-list>
+    <a *ngIf="!isAuth" mat-list-item routerLink="/signup" (click)="onToggleSidenav()">
+        <mat-icon>how_to_reg</mat-icon>
+        <span class="nav-caption">signup</span>
+    </a>
+    <a *ngIf="!isAuth" mat-list-item routerLink="/login" (click)="onToggleSidenav()">
+        <mat-icon>login</mat-icon>
+        <span class="nav-caption">login</span>
+    </a>
+    <a *ngIf="isAuth" mat-list-item routerLink="/member/edit" (click)="onToggleSidenav()">
+        <mat-icon>edit</mat-icon>
+        <span class="nav-caption">Edit</span>
+    </a>
+    <a *ngIf="isAuth" mat-list-item routerLink="/members" (click)="onToggleSidenav()">
+        <mat-icon>favorite</mat-icon>
+        <span class="nav-caption">Matches</span>
+    </a>
+
+    <a *ngIf="isAuth" mat-list-item routerLink="/list" (click)="onToggleSidenav()">
+        <mat-icon>list</mat-icon>
+        <span class="nav-caption">List</span>
+    </a>
+
+    <a *ngIf="isAuth" mat-list-item routerLink="/messages" (click)="onToggleSidenav()">
+        <mat-icon>chat</mat-icon>
+        <span class="nav-caption">Messages</span>
+    </a>
+
+    <ng-container *appHasRole="allowedRoles;">
+        <a *ngIf="isAuth" mat-list-item routerLink="/admin" (click)="onToggleSidenav()">
+            <mat-icon>admin_panel_settings</mat-icon>
+            <span class="nav-caption" >Admin panel</span>
+        </a>
+    </ng-container>
+
+    <a *ngIf="isAuth" mat-list-item  (click)="onLogout()">
+        <mat-icon>door_front</mat-icon>
+        <span class="nav-caption">Logout</span>
+    </a>
+</mat-nav-list>

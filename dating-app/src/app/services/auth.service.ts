@@ -29,8 +29,6 @@ export class AuthService {
       .post<UserResponse>(`${this.baseUrl}Account/login`, model)
       .pipe(
         map((response: UserResponse) => {
-          console.log(response);
-
           if (response && response.token) {
             this.setCurrentUser(response);
           }
@@ -49,8 +47,7 @@ export class AuthService {
   }
 
   setCurrentUser(user: UserResponse): void {
-    console.log(user);
-    console.log(user.token);
+
 
     if(user == null) {
       return;

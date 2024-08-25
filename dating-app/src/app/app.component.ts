@@ -7,15 +7,24 @@ import { HasRoleDirective } from './directives/has-role.directive';
 import { UserResponse } from './models/login.model';
 import { AuthService } from './services/auth.service';
 import { PresenceService } from './services/presence.service';
+import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule,
-    NavComponent, LoginComponent, RouterOutlet,HasRoleDirective  
+  imports: 
+  [
+    RouterOutlet,
+    CommonModule,
+    NavComponent, 
+    LoginComponent, 
+    HasRoleDirective,
+    SidenavListComponent,
+    MatSidenavModule
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'] // Corrected from styleUrl to styleUrls
+  styleUrls: ['./app.component.scss'] 
 })
 export class AppComponent implements OnInit {
   title = 'dating-app';

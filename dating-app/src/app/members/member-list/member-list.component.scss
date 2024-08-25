@@ -5,32 +5,36 @@
 
   .filter-container {
     display: flex;
-    flex-direction: column; // Stack form fields vertically
-    align-items: center; // Center form fields horizontally
-    width: 100%; // Ensure the container takes full width
+    flex-direction: column; 
+    align-items: center; 
+    width: 100%;
     margin-bottom: 16px;
+    margin-left: auto;
+    margin-right: auto;
 
     form {
       padding-top: 1rem;
       display: flex;
-      flex-wrap: wrap; // Allow form fields to wrap if needed
-      gap: 16px; // Space between form fields and buttons
-      width: 100%; // Ensure the form takes full width
-      max-width: 1000px; // Limit the width of the form for better alignment
+      flex-wrap: wrap; 
+      gap: 16px; 
+      width: 100%; 
+      max-width: 1000px; 
+      margin-left: auto;
+      margin-right: auto;
 
       mat-form-field {
-        flex: 1 1 200px; // Allow form fields to grow and shrink with a minimum width
-        max-width: 300px; // Make form fields smaller
+        flex: 1 1 200px; 
+        max-width: 300px;
         display: flex;
-        position: relative; // Allows for absolute positioning of mat-error
+        position: relative;
 
         mat-error {
           position: absolute;
-          bottom: -24px; // Adjust this value as needed
+          bottom: -24px; 
           left: 0;
           width: 100%;
           color: red;
-          font-size: 0.75rem; // Smaller font size for error messages
+          font-size: 0.75rem; 
         }
       }
 
@@ -45,16 +49,16 @@
   }
 
   .error-container {
-    width: 100%; // Ensure the error container takes full width
+    width: 100%;
     display: flex;
-    justify-content: center; // Center the error message
-    margin-bottom: 16px; // Space below the error message
+    justify-content: center; 
+    margin-bottom: 16px; 
 
     mat-error.full-width-error {
-      width: 100%; // Ensure the error message takes full width
-      text-align: center; // Center the text
+      width: 100%;
+      text-align: center; 
       color: red;
-      font-size: 0.75rem; // Smaller font size for error messages
+      font-size: 0.75rem;
     }
   }
 
@@ -67,7 +71,7 @@
 
     app-member-card {
       width: 100%;
-      max-width: 300px; // Limit the max width of member cards
+      max-width: 300px;
     }
   }
 
@@ -76,5 +80,39 @@
     justify-content: center;
     width: 100%;
     margin-top: 16px;
+  }
+
+  @media (max-width: 600px) {
+    .filter-container {
+      form {
+        flex-direction: column; 
+        align-items: center;
+        padding-left: 0; 
+        padding-right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 8px;
+        width: 100%;
+        max-width: 100%;
+
+        mat-form-field {
+          flex: none; 
+          width: 100%; 
+          max-width: none;
+        }
+
+        .button-container {
+          display: flex;
+          flex-direction: column; 
+          align-items: center; 
+          gap: 8px; 
+          width: 100%;
+
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
   }
 }

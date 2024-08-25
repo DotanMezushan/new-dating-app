@@ -31,7 +31,6 @@ export class MembersService {
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe((user: any) => {
       this.user = user;
-      console.log(user);
       this.userParams = new UserParams(user);
     });
   }
