@@ -16,7 +16,7 @@
       width: 100%; // Ensure it doesn't exceed this width
       display: flex;
       flex-direction: column; // Stack children vertically
-      height: 550px; // Take full height of parent container
+      height: 100%; // Take full height of parent container
       margin-left: auto;
       margin-right: auto;
     }
