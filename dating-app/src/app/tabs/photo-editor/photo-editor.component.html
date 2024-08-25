@@ -13,8 +13,7 @@
     </ng-container>
   </div>
   
-<!-- Drag and Drop Upload Section -->
-<div class="file-drop-area"
+<div *ngIf="!isMobileMode"  class="file-drop-area"
      (drop)="onDrop($event)"
      (dragover)="onDragOver($event)"
      (dragleave)="onDragLeave($event)">
@@ -25,3 +24,12 @@
   </button>
   <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none;" />
 </div>
+
+<div *ngIf="isMobileMode" class="mobile-uploder">
+  <button mat-stroked-button color="primary" (click)="fileInput.click()">
+    <mat-icon>upload</mat-icon>
+    Upload
+  </button>
+  <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none;" />
+</div>
+  

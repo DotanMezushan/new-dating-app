@@ -85,29 +85,29 @@
   @media (max-width: 600px) {
     .filter-container {
       form {
-        flex-direction: column; 
+        flex-direction: column;
         align-items: center;
-        padding-left: 0; 
-        padding-right: 0;
+        padding: 0; // Remove extra padding
         margin-left: auto;
         margin-right: auto;
         gap: 8px;
         width: 100%;
         max-width: 100%;
-
+  
         mat-form-field {
-          flex: none; 
-          width: 100%; 
-          max-width: none;
+          flex: none;
+          width: 100%; // Full width minus the desired space on both sides
+          //margin: 0 5px 5px 5px; // Add 5px margin to the left, right, and bottom
         }
-
+  
         .button-container {
           display: flex;
-          flex-direction: column; 
-          align-items: center; 
-          gap: 8px; 
-          width: 100%;
-
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          width: 80%; // Full width minus the desired space on both sides
+          margin: 0 10px; // Add 10px margin to the left and right
+  
           button {
             width: 100%;
           }
@@ -115,4 +115,5 @@
       }
     }
   }
+  
 }

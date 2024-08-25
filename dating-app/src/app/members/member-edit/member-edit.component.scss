@@ -1,40 +1,152 @@
 .member-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch; // Ensure children stretch to the height of the container
+  gap: 1rem; // Adds spacing between the flex items
+
+  .member-detail {
+    flex: 0 1 300px; // Allows the item to shrink but not grow beyond 300px
+    max-width: 300px; // Ensures it doesn't exceed this width
+    margin: 1rem;
     display: flex;
-    flex-wrap: wrap;
-    align-items: stretch; // Ensure children stretch to the height of the container
-    gap: 1rem; // Adds spacing between the flex items
-    
-    .member-detail {
-      flex: 0 1 300px; // Allows the item to shrink but not grow beyond 300px
-      max-width: 300px; // Ensures it doesn't exceed this width
-      margin: 1rem;
+    flex-direction: column; // Stack children vertically
+    height: 100%; // Take full height of parent container
+    background: #fff; // Adds a white background to enhance contrast
+    border-radius: 8px; // Adds rounded corners for a softer look
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+    transition: box-shadow 0.3s ease-in-out; // Smooth transition for hover effect
+
+    &:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); // Stronger shadow on hover
+    }
+
+    .profile-card {
+      height: 500px; // Set a specific height for the profile card
       display: flex;
       flex-direction: column; // Stack children vertically
-      height: 100%; // Take full height of parent container
-      background: #fff; // Adds a white background to enhance contrast
-      border-radius: 8px; // Adds rounded corners for a softer look
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+      justify-content: space-between; // Distribute space between elements
+      max-width: 100%; // Use full available width
+      margin: 1rem;
+      border: 1px solid #ddd; // Add border to profile card
+      border-radius: 8px; // Optional: Add rounded corners
       transition: box-shadow 0.3s ease-in-out; // Smooth transition for hover effect
-    
+
       &:hover {
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); // Stronger shadow on hover
       }
-    
-      .profile-card {
-        height: 500; // Set a specific height for the profile card
+
+      .profile-image {
+        width: 50%;
+        padding-top: 50%;
+        border-radius: 50%;
+        background-size: cover;
+        background-position: center;
+        margin: 0 auto;
+        border: 2px solid #ddd; // Add border around profile image
+      }
+
+      mat-card-header {
         display: flex;
-        flex-direction: column; // Stack children vertically
-        justify-content: space-between; // Distribute space between elements
-        max-width: 100%; // Use full available width
-        margin: 1rem;
-        border: 1px solid #ddd; // Add border to profile card
-        border-radius: 8px; // Optional: Add rounded corners
-        transition: box-shadow 0.3s ease-in-out; // Smooth transition for hover effect
-    
-        &:hover {
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); // Stronger shadow on hover
+        align-items: center;
+        flex-direction: column;
+
+        .mat-card-title {
+          font-size: 1.4rem; // Slightly larger title font size
+          font-weight: bold;
+          margin-top: 1rem;
         }
-    
+
+        .mat-card-subtitle {
+          font-size: 1.1rem; // Slightly larger subtitle font size
+          color: #666; // Slightly darker color for subtitle
+        }
+      }
+
+      mat-card-actions {
+        display: flex;
+        justify-content: space-between; // Distribute space between buttons
+        align-items: center; // Align buttons vertically in the center
+        margin-top: auto; // Push actions to the bottom
+
+        button {
+          mat-icon {
+            font-size: 24px; // Adjust icon size if needed
+          }
+
+          &:first-of-type {
+            margin-right: auto; // Pushes the first button to the left
+          }
+
+          &:last-of-type {
+            margin-left: auto; // Pushes the last button to the right
+          }
+        }
+
+        @media (max-width: 600px) {
+          flex-direction: column; // Stack buttons vertically
+          align-items: center; // Center buttons horizontally
+
+          button {
+            margin-bottom: 0.5rem; // Add space between buttons
+            width: 100%; // Make buttons take the full width of the container
+
+            &:last-of-type {
+              margin-bottom: 0; // Remove bottom margin for the last button
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .member-details-tab {
+    flex: 1; // Take the remaining space
+    margin: 1rem;
+    display: flex;
+    flex-direction: column; // Stack children vertically
+    height: 100%; // Take full height of parent container
+  }
+}
+
+// Increase the size of mat-form-field and textarea
+mat-form-field {
+  width: 100%; // Makes the form field take the full width of its container
+  margin-bottom: 1rem; // Adds space below the form field
+
+  textarea {
+    height: 200px; // Set a specific height for the textarea
+    padding: 1rem; // Add padding inside the textarea
+  }
+}
+
+.alert {
+  background-color: #2196F3; // Material Design Blue 500 for an info-like background
+  color: #ffffff; // White text for contrast
+  font-weight: bold;
+  padding: 1rem;
+  border-radius: 8px; // Rounded corners
+  border: 1px solid #1976D2; // Material Design Blue 700 for border
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Slight shadow for better visibility
+  margin-bottom: 1rem; // Space below the alert
+}
+
+@media (max-width: 600px) {
+  .member-container {
+    .member-detail {
+      flex: 0 1 auto; // Allow the item to shrink but not grow beyond its content
+      max-width: 100%; // Ensure it doesn't exceed the container width
+      margin: 0 auto; // Center the element horizontally
+      display: flex;
+      flex-direction: column; // Stack children vertically
+      height: auto; // Adjust height to fit content
+
+      .profile-card {
+        width: 100%; // Full width of its container
+        height: auto; // Adjust height to fit content
+        margin: 0; // Remove any extra margins
+        border: 1px solid #ddd; // Border around profile card
+        border-radius: 8px; // Rounded corners
+
         .profile-image {
           width: 50%;
           padding-top: 50%;
@@ -42,108 +154,27 @@
           background-size: cover;
           background-position: center;
           margin: 0 auto;
-          border: 2px solid #ddd; // Add border around profile image
+          border: 2px solid #ddd; // Border around profile image
         }
-    
+
         mat-card-header {
           display: flex;
           align-items: center;
           flex-direction: column;
-    
-          .mat-card-title {
-            font-size: 1.4rem; // Slightly larger title font size
-            font-weight: bold;
-            margin-top: 1rem;
-          }
-    
-          .mat-card-subtitle {
-            font-size: 1.1rem; // Slightly larger subtitle font size
-            color: #666; // Slightly darker color for subtitle
-          }
-        }
-    
-        mat-card-actions {
-          display: flex;
-          justify-content: space-between;
-          margin-top: auto; // Ensure actions are pushed to the bottom
-    
-          mat-icon {
-            font-size: 28px; // Larger icon size
-            cursor: pointer;
-            transition: color 0.3s ease, transform 0.3s ease;
-            color: #007bff;
-    
-            &:hover {
-              color: #0056b3; // Darker blue on hover
-              transform: scale(1.1); // Slightly scale up icon on hover
-            }
-          }
-        }
-      }
-    }
-  
-    .member-details-tab {
-      flex: 1; // Take the remaining space
-      margin: 1rem;
-      display: flex;
-      flex-direction: column; // Stack children vertically
-      height: 100%; // Take full height of parent container
-    }
-  }
-  
-  @media (max-width: 400px) {
-    .member-detail {
-      .profile-card {
-        width: 100%;
-        margin: 0.5rem;
-        height: auto; // Adjust height on small screens
-    
-        .profile-image {
-          width: 100%; // Adjust width on small screens
-          padding-top: 100%; // Ensure aspect ratio
-        }
-    
-        mat-card-header {
-          flex-direction: column;
-          align-items: center;
-    
+
           .mat-card-title,
           .mat-card-subtitle {
-            text-align: center;
+            text-align: center; // Center text
           }
         }
-    
+
         mat-card-actions {
-          flex-direction: column;
-          align-items: center;
+          display: inline;
+          flex-direction: column; // Stack buttons vertically on small screens
+          align-items: center; // Center buttons horizontally
+          margin-top: auto; // Push actions to the bottom
         }
       }
     }
   }
-  
-// Increase the size of mat-form-field and textarea
-mat-form-field {
-    // Adjust width and height for the form field
-    width: 100%; // Makes the form field take the full width of its container
-    margin-bottom: 1rem; // Adds space below the form field
-    
-    textarea {
-      // Adjust the height of the textarea
-      height: 200px; // Set a specific height for the textarea
-      padding: 1rem; // Add padding inside the textarea
-    }
-  }
-
-  .alert {
-    background-color: #2196F3; // Material Design Blue 500 for an info-like background
-    color: #ffffff; // White text for contrast
-    font-weight: bold;
-    padding: 1rem;
-    border-radius: 8px; // Rounded corners
-    border: 1px solid #1976D2; // Material Design Blue 700 for border
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Slight shadow for better visibility
-    margin-bottom: 1rem; // Space below the alert
-  }
-  
-  
-  
+}

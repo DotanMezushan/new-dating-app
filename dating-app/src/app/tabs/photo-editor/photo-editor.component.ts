@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, EventEmitter, Output, HostListener } from '@angular/core';
 import { Member } from '../../models/member.model';
 import { MembersService } from '../../services/members.service';
 import { Photo } from '../../models/photo.model';
@@ -18,6 +18,8 @@ import { take } from 'rxjs';
   styleUrls: ['./photo-editor.component.scss'],
 })
 export class PhotoEditorComponent {
+  private readonly MOBILE_BREAKPOINT = 600;
+  isMobileMode: boolean = false;
   user: UserResponse | null = new UserResponse();
   @Input() member!: Member;
   @Output() mainPhotoUrlChanged = new EventEmitter<string>();
@@ -32,7 +34,8 @@ export class PhotoEditorComponent {
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe(user => {
       this.user = user;
-    })
+    });
+    this.checkIfMobileMode();
   }
 
   deletePhoto(photo: Photo) {
@@ -106,5 +109,14 @@ export class PhotoEditorComponent {
       })
       this.mainPhotoUrlChanged.emit(photo.url);
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.checkIfMobileMode();
+  }
+
+  private checkIfMobileMode(): void {
+    this.isMobileMode = window.innerWidth <= this.MOBILE_BREAKPOINT;
   }
 }

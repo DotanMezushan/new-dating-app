@@ -26,25 +26,27 @@ import { HasRoleDirective } from '../directives/has-role.directive';
 })
 export class SidenavListComponent {
   @Output() sidenavToggle = new EventEmitter<void>();
-  isAuth:boolean = false;
-  user: UserResponse | null = new UserResponse();
   authSubscription !: Subscription;
   allowedRoles : string[] = ['Admin', 'Moderator'];
   constructor(private authService :AuthService){
-    this.authService.currentUser$.pipe(take(1)).subscribe(user => {
-      this.user = user;
-      if(user?.token){
-        this.isAuth = true;
-      }
-    })
   }
 
   onToggleSidenav(){
     this.sidenavToggle.emit();
   }
+
   onLogout(){
     this.onToggleSidenav();
     this.authService.setLogOut();
+  }
+
+  isAuthenticated(): boolean {
+    let tokenString: string = this.authService.getToken();
+    if(tokenString?.length){
+      return true;
+    }else{
+      return false;
+    }
   }
 
 }

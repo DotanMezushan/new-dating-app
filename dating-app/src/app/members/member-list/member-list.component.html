@@ -32,7 +32,7 @@
   </div>
 
   <div class="error-container">
-    <mat-error *ngIf="filterForm.errors && filterForm.errors['ageRangeCheck']" class="full-width-error">
+    <mat-error *ngIf="filterForm && filterForm.errors && filterForm.errors['ageRangeCheck']" class="full-width-error">
       Maximum age must be greater than minimum age
     </mat-error>
   </div>
