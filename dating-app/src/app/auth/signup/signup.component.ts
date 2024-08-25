@@ -48,17 +48,9 @@ export class SignupComponent implements OnInit{
   }
 
   onSubmit(form : NgForm){
-    // let authData: AuthData = form.value;
-    // this.authService.rgisterUser(authData);
-    console.log(form.value);
-    const signup: LoginModel = {
-      UserName: form.value.email,
-      Password: form.value.password
-    };
-    
-
+    this.isLoading = true;
     this.authService.register(form.value).subscribe((res : any) => {
-      console.log(res);
+      this.isLoading = false;
       this.authService.navigateToHomePage();
     }, error => {
       console.log(error);

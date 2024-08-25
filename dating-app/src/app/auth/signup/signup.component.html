@@ -8,17 +8,16 @@
           >
         <mat-form-field>
             <input 
-            type="email"
+            type="text"
                 matInput
-                placeholder="Your email"
+                placeholder="Your name"
                 ngModel
                 name="UserName"
-                email
                 required
-                #emailInput = "ngModel"
+                #nameInput = "ngModel"
             >
-            <mat-error  *ngIf="emailInput.hasError('email')">E-mail is invalid</mat-error>
-            <mat-error *ngIf="emailInput.hasError('required')" >Field must not be empty</mat-error>
+            <!-- <mat-error  *ngIf="emailInput.hasError('email')">E-mail is invalid</mat-error> -->
+            <mat-error *ngIf="nameInput.hasError('required')" >Field must not be empty</mat-error>
         </mat-form-field>
 
         <mat-form-field hintLabel="Should be at least 6 characters long">

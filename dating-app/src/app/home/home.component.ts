@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.snackbarService.showSnackbar("You must be logged in to access this page", null,3000);
+    //this.snackbarService.showSnackbar("You must be logged in to access this page", null,3000);
 
   }
 

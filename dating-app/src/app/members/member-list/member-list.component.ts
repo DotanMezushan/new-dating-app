@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-member-list',
@@ -25,6 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './member-list.component.html',
   styleUrls: ['./member-list.component.scss']
@@ -35,6 +37,7 @@ export class MemberListComponent implements OnInit {
   user!: UserResponse;
   userParams!: UserParams;
   filterForm!: FormGroup;
+  isLoading : boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -56,11 +59,13 @@ export class MemberListComponent implements OnInit {
   }
 
   loadMembers(): void {
+    this.isLoading = true;
     this.membersService.setUserParams(this.userParams);
     this.membersService.getMembers(this.userParams).subscribe(response => {
       this.members = response.result;
       this.pagination = response.pagination;
       this.initializeForm();
+      this.isLoading = false;
     });
   }
 

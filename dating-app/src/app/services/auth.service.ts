@@ -59,7 +59,7 @@ export class AuthService {
     this.isAuthenticated = true;
     localStorage.setItem('user', JSON.stringify(user));
     this.presenceService.createHubConnection (user);
-    this.navigateToHomePage();
+    this.navigateToMembers();
   }
 
   setLogOut() {
@@ -67,7 +67,7 @@ export class AuthService {
     this.isAuthenticated = false;
     this.presenceService.stopHubConnection();
     localStorage.removeItem('user');
-    this.snackbarService.showSnackbar('You logged out', null, 3000);
+    //this.snackbarService.showSnackbar('You logged out', null, 3000);
     this.router.navigate(['/login']);
   }
 
@@ -78,6 +78,12 @@ export class AuthService {
   navigateToDev(): void {
     this.router.navigate(['/member/edit']);
   }
+
+  navigateToMembers(): void {
+    this.router.navigate(['/members']);
+  }
+
+  
 
   getToken(): string {
     let user : UserResponse = JSON.parse(localStorage.getItem('user') as any); 

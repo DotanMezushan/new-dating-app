@@ -72,6 +72,7 @@ export class MemberEditComponent implements OnInit {
   }
 
   loadMember(): void {
+    this.isLoading = true;
     let userName: string;
     if (this.user && this.user.userName) {
       userName = this.user.userName;

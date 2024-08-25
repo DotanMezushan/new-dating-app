@@ -52,8 +52,8 @@ export class PresenceService {
 
     this.hubConnection.on("NewMessageReceied", ({ userName, knowAs }) => {
       const snackBarRef = this.snackbarService.showSnackbar(
-        `${userName} has sent you a new message!`,
-        "Prees to to new message! ", // Action button label
+        "",
+        `${userName} has sent you a new message! Prees to to new message!`, // Action button label
         3000
       );
     

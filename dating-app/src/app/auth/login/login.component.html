@@ -7,16 +7,16 @@
           (ngSubmit)="onSubmit(f)"
           >
         <mat-form-field>
-            <input type="email"
+            <input type="text"
                 matInput
-                placeholder="Your email"
+                placeholder="Your name"
                 ngModel
-                name="email"
+                name="name"
                 required
-                #emailInpit = "ngModel"
+                #nameInpit = "ngModel"
             >
             <!-- <mat-error  *ngIf="emailInpit.hasError('email')">E-mail is invalid</mat-error> -->
-            <mat-error *ngIf="emailInpit.hasError('required')" >Field must not be empty</mat-error>
+            <mat-error *ngIf="nameInpit.hasError('required')" >Field must not be empty</mat-error>
         </mat-form-field>
         <mat-form-field hintLabel="Should be at least 6 characters long">
             <input type="password"

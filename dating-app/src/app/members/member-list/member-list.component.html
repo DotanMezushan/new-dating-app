@@ -31,11 +31,16 @@
     </form>
   </div>
 
+
+
   <div class="error-container">
     <mat-error *ngIf="filterForm && filterForm.errors && filterForm.errors['ageRangeCheck']" class="full-width-error">
       Maximum age must be greater than minimum age
     </mat-error>
   </div>
+
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+
 
   <div class="members-container">
     <div *ngFor="let member of members">
