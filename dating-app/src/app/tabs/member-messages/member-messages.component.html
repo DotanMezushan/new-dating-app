@@ -1,4 +1,5 @@
-<div #messagesContainer class="messages-container">
+<div class="member-messages">
+  <div #messagesContainer class="messages-container">
     <mat-card *ngFor="let message of messageService.messageThread$| async">
       <mat-card-header>
         <div mat-card-avatar class="sender-photo" [ngStyle]="{'background-image': 'url(' + message.senderPhotoUrl + ')'}"></div>
@@ -42,4 +43,6 @@
       
     </div>
   </div>
+</div>
+
   

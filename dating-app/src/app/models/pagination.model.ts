@@ -1,8 +1,8 @@
 export class Pagination {
-    public currentPage!: number;
-    public itemsPerPage!: number;
-    public totalItems!: number;
-    public totalPages!: number;
+    public currentPage: number = 0;
+    public itemsPerPage : number = 5;
+    public totalItems : number = 1;
+    public totalPages: number = 0;
 
     constructor() {
          this.currentPage = 0;

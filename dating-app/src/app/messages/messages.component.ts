@@ -30,7 +30,7 @@ import { MatSortModule } from '@angular/material/sort';
 })
 export class MessagesComponent implements OnInit {
   messages = new MatTableDataSource<Message>();  // Use MatTableDataSource
-  pagination!: Pagination;
+  pagination: Pagination = new Pagination();
   container: string = 'Inbox';
   pageNumber: number = 1;
   pageSize = 5;
@@ -49,7 +49,8 @@ export class MessagesComponent implements OnInit {
   constructor(
     private messagesService: MessageService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadMessages();

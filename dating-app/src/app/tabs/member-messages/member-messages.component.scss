@@ -111,17 +111,16 @@
   }
   
   @media (max-width: 600px) {
+    .member-messages{
+      width: 100%;
+    }
     mat-card{
-      padding: 8px; 
       width: 90%;
     }
-    .messages-container{
-      padding: 8px; 
-      width: 90%; 
-    }
+
     .message-input-container {
       padding: 8px; // Reduced padding for better spacing on small screens
-      width: 80%; // Ensure the container takes the full width
+      width: 90%; // Ensure the container takes the full width
   
       .display-same-line {
         flex-direction: column; // Stack input and button vertically on small screens
