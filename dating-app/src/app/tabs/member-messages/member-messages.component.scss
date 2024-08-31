@@ -111,9 +111,17 @@
   }
   
   @media (max-width: 600px) {
+    mat-card{
+      padding: 8px; 
+      width: 90%;
+    }
+    .messages-container{
+      padding: 8px; 
+      width: 90%; 
+    }
     .message-input-container {
       padding: 8px; // Reduced padding for better spacing on small screens
-      width: 100%; // Ensure the container takes the full width
+      width: 80%; // Ensure the container takes the full width
   
       .display-same-line {
         flex-direction: column; // Stack input and button vertically on small screens
@@ -124,7 +132,7 @@
         margin-bottom: 8px; // Increased space between input and button for clarity
   
         mat-form-field {
-          width: 100%; // Ensure input takes full width
+          width: 60%; // Ensure input takes full width
           height: auto; // Allow height to adjust based on content
   
           .mat-form-field-wrapper {

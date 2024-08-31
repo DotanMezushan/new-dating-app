@@ -91,7 +91,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
     if (
       this.route.snapshot.url.some((segment) => segment.path === 'messages')
     ) {
-      this.selectedTabIndex = 3;
+      this.selectedTabIndex = 0;
       this.messageService.createHubConnection(this.user, this.member.userName);
     }
   }
@@ -141,7 +141,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
     const tabIndex = event.index;
     //const tabLabel = event.tab.textLabel;
 
-     if (tabIndex === 3) {
+     if (tabIndex === 0) {
       this.messageService.createHubConnection(this.user, this.member.userName);
     }else{
       this.messageService.stopHubConnection();
